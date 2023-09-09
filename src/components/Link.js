@@ -57,13 +57,13 @@ const LinkSettingBtn = styled.button`
   padding: 8px;
 `;
 
-const Link = ({link,provided,snapshot}) => {
+const Link = ({link,provided,snapshot,deleteLink}) => {
 
     const onSettingClickHandler = (event) => {
         event.preventDefault();
         event.stopPropagation();
 
-        alert("설정 버튼 클릭");
+        deleteLink(link.name,link.url);
     }
 
     return (

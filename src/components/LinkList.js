@@ -37,6 +37,12 @@ const LinkList = () => {
         localStorage.setItem('links', JSON.stringify([...links, newLink]));
     }
 
+    const deleteLink = (name, url) => {
+        const newLinks = links.filter(link => link.name !== name && link.url !== url);
+        setLinks(newLinks);
+        localStorage.setItem('links', JSON.stringify(newLinks));
+    }
+
     const handleEnd = (result) => {
 if(!result.destination) return;
 
@@ -46,9 +52,14 @@ if(!result.destination) return;
         setLinks(newLinks);
         localStorage.setItem('links', JSON.stringify(newLinks));
     }
+
+    /**
+     * todo: horizontal 과 vertical 이동을 동시에 처리할 수 있게 해야
+     *
+     */
     return (
         <DragDropContext onDragEnd={handleEnd}>
-            <Droppable droppableId="links" direction="horizontal">
+            <Droppable droppableId="links" direction="hor함zontal">
                 {(provided) => (
                     <Wrapper {...provided.droppableProps} ref={provided.innerRef}>
                         {links.map((link, index) => (
@@ -58,7 +69,7 @@ if(!result.destination) return;
                                 index={index}
                             >
                                 {(provided, snapshot) => (
-                                    <Link key={index} link={link} id={link.name}
+                                    <Link key={index} link={link} id={link.name} deleteLink={deleteLink}
                                         provided={provided} snapshot={snapshot}
                                     />
                                 )}
