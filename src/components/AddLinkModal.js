@@ -94,7 +94,7 @@ const AddLinkModal = ({isOpen, close, addLink}) => {
     }
 
     const onSubmitHandler = (e) => {
-        e.preventDefault();
+        e?.preventDefault();
 
         addLink(name,url);
         setName("");
@@ -105,11 +105,9 @@ const AddLinkModal = ({isOpen, close, addLink}) => {
     return (
         <ModalOverlay onClick={close}>
             <Modal onClick={e => e.stopPropagation()}>
-                <ModalContent
-                    onSubmit={onSubmitHandler}
-                >
+                <ModalContent>
                     <span style={{marginBottom: 10}}>바로가기 추가</span>
-                    <Form>
+                    <Form type="submit" onSubmit={onSubmitHandler}>
                         <Label>이름</Label>
                         <Input
                             value={name}
@@ -122,16 +120,22 @@ const AddLinkModal = ({isOpen, close, addLink}) => {
                             type="text"
                             onChange={onLinkChangeHandler}
                         />
+                        <ButtonList>
+                            <Button type="button" onClick={close} cancel>취소</Button>
+                            <Button
+                                type="submit"
+                                onClick={() => {
+                                    if(name.length > 0 && url.length > 0) {
+                                        onSubmitHandler();
+                                    }
+                                }}
+                                addable={name.length > 0 && url.length > 0}
+                            >
+                                추가
+                            </Button>
+                        </ButtonList>
                     </Form>
-                    <ButtonList>
-                        <Button onClick={close} cancel>취소</Button>
-                        <Button
-                            onClick={onSubmitHandler}
-                            addable={name.length > 0 && url.length > 0}
-                        >
-                            추가
-                        </Button>
-                    </ButtonList>
+
 
                 </ModalContent>
             </Modal>

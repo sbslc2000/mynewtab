@@ -63,7 +63,7 @@ const Link = ({link,provided,snapshot,deleteLink}) => {
         event.preventDefault();
         event.stopPropagation();
 
-        deleteLink(link.name,link.url);
+        deleteLink(link.id);
     }
 
     return (

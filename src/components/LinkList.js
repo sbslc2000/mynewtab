@@ -18,27 +18,38 @@ const Wrapper = styled.div`
 const LinkList = () => {
 
     const [links, setLinks] = useState([]);
+    const [linksLastId, setLinksLastId] = useState(null);
+
     useEffect(() => {
         const links = JSON.parse(localStorage.getItem('links'));
+        const linksLastId = Number(localStorage.getItem('linksLastId')) || 0;
+
         if (links) {
             setLinks(links);
         }
+        setLinksLastId(linksLastId);
+
     }, []);
 
     const addLink = (name, url) => {
         let favicon = extractFavicon(url);
         const newLink = {
-
+            id : linksLastId,
             name: name,
             url: url,
             favicon: favicon
         }
+
+        const newLinksLastId = linksLastId + 1;
+
+        setLinksLastId(newLinksLastId);
         setLinks([...links, newLink]);
         localStorage.setItem('links', JSON.stringify([...links, newLink]));
+        localStorage.setItem('linksLastId', newLinksLastId);
     }
 
-    const deleteLink = (name, url) => {
-        const newLinks = links.filter(link => link.name !== name && link.url !== url);
+    const deleteLink = (id) => {
+        const newLinks = links.filter(link => link.id !== id);
         setLinks(newLinks);
         localStorage.setItem('links', JSON.stringify(newLinks));
     }
