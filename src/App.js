@@ -29,10 +29,10 @@ function AnimationApp() {
                 classNames={classNames}
             >
                 <Routes >
-                    <Route path="/" element={<MainPage
+                    <Route path="/mynewtab/" element={<MainPage
                         pageNavigateHandler = {pageNavigateHandler}
                     />}/>
-                    <Route path="/todo" element={<TodoListPage
+                    <Route path="/mynewtab/todo" element={<TodoListPage
                         pageNavigateHandler = {pageNavigateHandler}
                     />}/>
                 </Routes>

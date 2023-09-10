@@ -32,7 +32,7 @@ const MainPage = ({pageNavigateHandler}) => {
     }, []);
 
     const onRightClickHandler = () => {
-        pageNavigateHandler("/todo", "right");
+        pageNavigateHandler("/mynewtab/todo", "right");
     }
     return (
         <Wrapper>
