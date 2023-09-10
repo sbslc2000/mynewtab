@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import {FiEdit} from "react-icons/fi";
-import {useSortable} from "@dnd-kit/sortable";
-import {PointerSensor, useSensor, useSensors} from "@dnd-kit/core";
 
 const Wrapper = styled.a`
   position: relative;
@@ -59,15 +57,8 @@ const LinkSettingBtn = styled.button`
   padding: 8px;
 `;
 
-const Link = ({id,link,deleteLink}) => {
+const Link = ({link,provided,snapshot,deleteLink}) => {
 
-    const {
-        attributes,
-        listeners,
-        setNodeRef,
-        transform,
-        transition,
-    } = useSortable({id: id});
     const onSettingClickHandler = (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -75,16 +66,10 @@ const Link = ({id,link,deleteLink}) => {
         deleteLink(link.id);
     }
 
-    const style = {
-        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
-        transition: transition,
-        zIndex: transform ? '999' : undefined, // 드래그 중인 아이템을 위로 띄움
-        boxShadow: transform ? '0px 5px 15px rgba(0, 0, 0, 0.3)' : undefined, // 드래그 중에 그림자 효과
-    };
-
-
     return (
-        <Wrapper ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        <Wrapper
+            href={link.url}  {...provided.draggableProps} ref={provided.innerRef} {...provided.dragHandleProps}
+        >
             <LinkSettingBtn onClick={onSettingClickHandler}>
                 <FiEdit></FiEdit>
             </LinkSettingBtn>
