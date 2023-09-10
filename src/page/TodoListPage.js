@@ -1,10 +1,7 @@
-import Header from "../components/Header";
-import GoogleSearchInput from "../components/GoogleSearchInput";
-import styled from "styled-components";
-import LinkList from "../components/LinkList";
 import PageNavigator from "../components/PageNavigator";
+import styled from "styled-components";
 import {useEffect} from "react";
-
+import TodoList from "../components/todo/TodoList";
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,14 +9,13 @@ const Wrapper = styled.div`
   align-items: center;
   height: 100vh;
 `;
-
-const MainPage = ({pageNavigateHandler}) => {
+const TodoListPage = ({pageNavigateHandler}) => {
 
     useEffect(() => {
         const handleKeyDown = (event) => {
-            if (event.metaKey && event.key === 'l') {
+            if (event.metaKey && event.key === 'j') {
                 event.preventDefault();
-                onRightClickHandler();
+                onLeftClickHandler();
             }
         };
 
@@ -31,18 +27,18 @@ const MainPage = ({pageNavigateHandler}) => {
         };
     }, []);
 
-    const onRightClickHandler = () => {
-        pageNavigateHandler("/todo", "right");
+    const onLeftClickHandler = () => {
+        pageNavigateHandler("/", "left");
     }
     return (
         <Wrapper>
-            <PageNavigator
-                onRightClickHandler={onRightClickHandler}/>
-            <Header />
-            <GoogleSearchInput></GoogleSearchInput>
-            <LinkList/>
+            <PageNavigator onLeftClickHandler={onLeftClickHandler}/>
+            <h1>
+                TodoList
+            </h1>
+            <TodoList></TodoList>
         </Wrapper>
     );
 }
 
-export default MainPage;
+export default TodoListPage;

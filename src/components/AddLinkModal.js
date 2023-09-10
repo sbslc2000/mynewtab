@@ -66,7 +66,7 @@ const Button = styled.button`
   background-color: #404245;
   border-radius: 7px;
   
-  ${props => props.cancel ? "background-color: inherit;border: 1px solid #606368" : ""}
+  ${props => props.cancel ? "background-color: inherit;border: 1px solid #606368;" : ""}
   background-color: ${props => props.addable ? "#96B3F5" : ""};
   
 `;

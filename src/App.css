@@ -1,0 +1,40 @@
+/* 오른쪽으로 슬라이드 */
+.slideRight-enter {
+    transform: translateX(-100%);
+}
+.slideRight-enter-active {
+    transform: translateX(0);
+}
+.slideRight-exit {
+    transform: translateX(0);
+}
+.slideRight-exit-active {
+    transform: translateX(100%);
+}
+
+/* 왼쪽으로 슬라이드 */
+.slideLeft-enter {
+    transform: translateX(100%);
+}
+.slideLeft-enter-active {
+    transform: translateX(0);
+}
+.slideLeft-exit {
+    transform: translateX(0);
+}
+.slideLeft-exit-active {
+    transform: translateX(-100%);
+}
+
+/* 공통 transition 설정 */
+.slideRight-enter,
+.slideRight-enter-active,
+.slideRight-exit,
+.slideRight-exit-active,
+.slideLeft-enter,
+.slideLeft-enter-active,
+.slideLeft-exit,
+.slideLeft-exit-active {
+    transition: transform 300ms ease-in-out;
+}
+
