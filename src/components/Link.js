@@ -46,16 +46,11 @@ const LinkName = styled.span`
 `;
 
 const LinkSettingBtn = styled.button`
-  
-  
   position: absolute;
   right: 0;
   top: 0;
-
   opacity: 0;  // 초기 투명도 설정
-
   transition: opacity 0.3s ease-in-out;  // 투명도에 대한 transition 설정
-
   padding: 8px;
 `;
 
@@ -75,22 +70,31 @@ const Link = ({id,link,deleteLink}) => {
         deleteLink(link.id);
     }
 
+    console.log(attributes["aria-pressed"]);
+    //console.log(listeners);
+    //console.log(setNodeRef);
+    //console.log(transform);
+    //console.log(transition);
+
     const style = {
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
         transition: transition,
         zIndex: transform ? '999' : undefined, // 드래그 중인 아이템을 위로 띄움
-        boxShadow: transform ? '0px 5px 15px rgba(0, 0, 0, 0.3)' : undefined, // 드래그 중에 그림자 효과
+        boxShadow: attributes["aria-pressed"] ? '0px 5px 15px rgba(0, 0, 0, 0.3)' : undefined, // 드래그 중에 그림자 효과
+        //backgroundColor : attributes["aria-pressed"] ? 'white' : undefined
     };
 
+    const onClickHandler = () => {
+        window.open(link.url);
+    }
 
     return (
-        <Wrapper ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        <Wrapper onClick={onClickHandler} ref={setNodeRef} style={style} {...attributes} {...listeners}>
             <LinkSettingBtn onClick={onSettingClickHandler}>
                 <FiEdit></FiEdit>
             </LinkSettingBtn>
             <LinkIcon>
                 <Favicon src={link.favicon} alt=""/>
-
             </LinkIcon>
 
             <LinkName>{link.name}</LinkName>
