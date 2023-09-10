@@ -1,6 +1,7 @@
 import {useState} from "react";
 import styled from "styled-components";
 import {AiOutlineSearch} from "react-icons/ai";
+import {resolveQuery} from "../util/SearchQueryResolver";
 
 const Wrapper = styled.div`
 
@@ -32,7 +33,7 @@ const SearchInput = () => {
 
     // 검색어를 입력하면 Google로 이동
     const handleSearch = () => {
-        window.open(`https://www.google.com/search?q=${query}`, '_blank');
+        resolveQuery(query);
     };
 
     // 텍스트가 변경될 때마다 상태를 업데이트
