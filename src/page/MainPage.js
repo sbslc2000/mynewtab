@@ -1,9 +1,10 @@
 import Header from "../components/Header";
-import GoogleSearchInput from "../components/GoogleSearchInput";
+import SearchInput from "../components/SearchInput";
 import styled from "styled-components";
 import LinkList from "../components/LinkList";
 import PageNavigator from "../components/PageNavigator";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import Sidebar from "../components/sidebar/Sidebar";
 
 
 const Wrapper = styled.div`
@@ -14,6 +15,8 @@ const Wrapper = styled.div`
 `;
 
 const MainPage = ({pageNavigateHandler}) => {
+
+
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -39,7 +42,8 @@ const MainPage = ({pageNavigateHandler}) => {
             <PageNavigator
                 onRightClickHandler={onRightClickHandler}/>
             <Header />
-            <GoogleSearchInput></GoogleSearchInput>
+            <Sidebar>HI</Sidebar>
+            <SearchInput></SearchInput>
             <LinkList/>
         </Wrapper>
     );

@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   border-radius: 24px;
   
   padding-left: 20px;
+  padding-right: 20px;
   width: 500px;
   height: 47px;
   background-color: white;
@@ -17,6 +18,7 @@ const Wrapper = styled.div`
 
 const Input = styled.input`
   height: 47px;
+  width: 100%;
   color: black;
   background-color: transparent;
   
@@ -25,7 +27,7 @@ const Input = styled.input`
     }
 `;
 
-const GoogleSearchInput = () => {
+const SearchInput = () => {
     const [query, setQuery] = useState('');
 
     // 검색어를 입력하면 Google로 이동
@@ -53,11 +55,11 @@ const GoogleSearchInput = () => {
                 value={query}
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}
-                placeholder="Google 검색"
+                placeholder="검색은 성장의 발판"
             >
             </Input>
         </Wrapper>
     );
 }
 
-export default GoogleSearchInput;
+export default SearchInput;
