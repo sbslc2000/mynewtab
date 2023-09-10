@@ -5,6 +5,17 @@ import AddLink from "./AddLink";
 import {extractFavicon} from "../util/FaviconExtractor";
 import {DndProvider} from "react-dnd";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
+import {
+    closestCenter,
+    DndContext,
+    KeyboardSensor,
+    MouseSensor,
+    PointerSensor,
+    TouchSensor,
+    useSensor,
+    useSensors
+} from "@dnd-kit/core";
+import {rectSortingStrategy, SortableContext, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
 
 const Wrapper = styled.div`
 
@@ -34,7 +45,7 @@ const LinkList = () => {
     const addLink = (name, url) => {
         let favicon = extractFavicon(url);
         const newLink = {
-            id : linksLastId,
+            id: linksLastId,
             name: name,
             url: url,
             favicon: favicon
@@ -55,7 +66,7 @@ const LinkList = () => {
     }
 
     const handleEnd = (result) => {
-if(!result.destination) return;
+        if (!result.destination) return;
 
         const newLinks = links;
         const [reorderedItem] = newLinks.splice(result.source.index, 1);
@@ -64,33 +75,56 @@ if(!result.destination) return;
         localStorage.setItem('links', JSON.stringify(newLinks));
     }
 
+    const sensors = useSensors(
+        useSensor(MouseSensor, {
+            activationConstraint: {
+                distance: 8,
+            },
+        }),
+        useSensor(TouchSensor, {
+            activationConstraint: {
+                delay: 200,
+                tolerance: 6,
+            },
+        }),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        }),
+    );
+
+    function handleDragEnd(event) {
+        const {active, over} = event;
+        if (active.id !== over.id) {
+            const oldIndex = links.findIndex((link) => link.id === active.id);
+            const newIndex = links.findIndex((link) => link.id === over.id);
+
+            const newLinks = [...links];
+            newLinks.splice(oldIndex, 1);
+            newLinks.splice(newIndex, 0, links[oldIndex]);
+
+            setLinks(newLinks);
+            localStorage.setItem('links', JSON.stringify(newLinks));
+        }
+    }
+
     /**
      * todo: horizontal 과 vertical 이동을 동시에 처리할 수 있게 해야
      *
      */
     return (
-        <DragDropContext onDragEnd={handleEnd}>
-            <Droppable droppableId="links" direction="hor함zontal">
-                {(provided) => (
-                    <Wrapper {...provided.droppableProps} ref={provided.innerRef}>
-                        {links.map((link, index) => (
-                            <Draggable
-                                key={link.name}
-                                draggableId={link.name}
-                                index={index}
-                            >
-                                {(provided, snapshot) => (
-                                    <Link key={index} link={link} id={link.name} deleteLink={deleteLink}
-                                        provided={provided} snapshot={snapshot}
-                                    />
-                                )}
-                            </Draggable>
-                        ))} {provided.placeholder}
-                        <AddLink addLink={addLink}/>
-                    </Wrapper>
-                )}
-            </Droppable>
-        </DragDropContext>
+        <Wrapper>
+            <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+                <SortableContext items={links.map(link => link.id)} strategy={rectSortingStrategy}>
+                    {links.map((link, index) => {
+                        return <Link key={link.id} link={link} id={link.id} deleteLink={deleteLink}></Link>;
+                    })}
+                </SortableContext>
+
+            </DndContext>
+
+            <AddLink addLink={addLink}/>
+        </Wrapper>
+
     );
 }
 
