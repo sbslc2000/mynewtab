@@ -28,7 +28,7 @@ const TodoListPage = ({pageNavigateHandler}) => {
     }, []);
 
     const onLeftClickHandler = () => {
-        pageNavigateHandler("/mynewtab/", "left");
+        pageNavigateHandler("/", "left");
     }
     return (
         <Wrapper>
