@@ -1,13 +1,28 @@
 import {useState} from "react";
 import styled from "styled-components";
+import {AiOutlineSearch} from "react-icons/ai";
 
+const Wrapper = styled.div`
 
-const Input = styled.input`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   border-radius: 24px;
+  
   padding-left: 20px;
   width: 500px;
   height: 47px;
+  background-color: white;
+`;
+
+const Input = styled.input`
+  height: 47px;
   color: black;
+  background-color: transparent;
+  
+    &:focus {
+        outline: none;
+    }
 `;
 
 const GoogleSearchInput = () => {
@@ -31,15 +46,17 @@ const GoogleSearchInput = () => {
     };
 
     return (
-        <div>
+        <Wrapper>
+            <AiOutlineSearch style={{color:"gray",fontSize:22,marginRight:5}}/>
             <Input
                 type="text"
                 value={query}
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}
                 placeholder="Google 검색"
-            />
-        </div>
+            >
+            </Input>
+        </Wrapper>
     );
 }
 
