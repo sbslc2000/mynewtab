@@ -6,14 +6,15 @@ import TodoListPage from "./page/TodoListPage";
 import {BrowserRouter as Router, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import "./App.css";
 import React, {useState} from "react";
-
+import {ThemeProvider} from "./context/ThemeProvider";
+import {GlobalStyle} from "./theme/GlobalStyle";
 
 function AnimationApp() {
     const location = useLocation();
     const navigate = useNavigate();
     const [direction, setDirection] = useState();
 
-    const pageNavigateHandler = (url,direction) => {
+    const pageNavigateHandler = (url, direction) => {
         setDirection(direction);
         navigate(url);
     }
@@ -28,12 +29,12 @@ function AnimationApp() {
                 timeout={300}
                 classNames={classNames}
             >
-                <Routes >
+                <Routes>
                     <Route path="/" element={<MainPage
-                        pageNavigateHandler = {pageNavigateHandler}
+                        pageNavigateHandler={pageNavigateHandler}
                     />}/>
                     <Route path="/todo" element={<TodoListPage
-                        pageNavigateHandler = {pageNavigateHandler}
+                        pageNavigateHandler={pageNavigateHandler}
                     />}/>
                 </Routes>
             </CSSTransition>
@@ -41,11 +42,15 @@ function AnimationApp() {
     );
 }
 
+
 function App() {
     return (
-        <Router basename={process.env.PUBLIC_URL}>
-            <AnimationApp/>
-        </Router>
+        <ThemeProvider>
+            <GlobalStyle/>
+                <Router basename={process.env.PUBLIC_URL}>
+                    <AnimationApp/>
+                </ Router>
+        </ThemeProvider>
     );
 }
 

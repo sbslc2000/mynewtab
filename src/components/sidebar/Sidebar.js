@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 const Menu = styled.div`
   width: ${props => props.isOpen ? "340px" : "0px"};
   height: ${props => props.isOpen ? "100%" : "0px"};
-  background-color: grey;
+  background-color: ${({theme}) => theme.bgColor};
   transition: 0.3s;
   flex-shrink: 0;
 `;

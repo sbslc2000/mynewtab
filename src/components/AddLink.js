@@ -18,7 +18,7 @@ const Wrapper = styled.a`
   padding: 20px;
 
   &:hover {
-    background-color: #4A4A4D;
+    background-color: ${({theme}) => theme.linkHover};
     cursor: pointer;
     
     & > button {
@@ -29,7 +29,7 @@ const Wrapper = styled.a`
 
 const LinkIcon = styled.div`
   width: 48px;
-  background-color: #252629;
+  background-color: ${({theme}) => theme.linkElementColor}
   height: 48px;
   border-radius: 50%;
   display: flex;

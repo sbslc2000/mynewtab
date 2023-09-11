@@ -16,7 +16,7 @@ const ModalOverlay = styled.div`
 
 const Modal = styled.div`
   width: 600px;
-  background: #2E2F32;
+  background-color: ${({theme}) => theme.bgColor};
   padding: 20px;
   border-radius: 8px;
 `;
@@ -47,8 +47,8 @@ const ButtonList = styled.div`
 
 const Input = styled.input`
   border-radius: 5px;
-  background-color: #222225;
-  border-bottom: 2px solid #222225;
+  background-color: ${({theme}) => theme.linkHover};
+  border-bottom: 2px solid ${({theme}) => theme.bgColor};
   padding: 5px;
   margin-bottom: 5px;
   
@@ -67,7 +67,7 @@ const Button = styled.button`
   border-radius: 7px;
   
   ${props => props.cancel ? "background-color: inherit;border: 1px solid #606368;" : ""}
-  background-color: ${props => props.addable ? "#96B3F5" : ""};
+  background-color: ${props => props.addable ? "#96B3F5" : "inherit"};
   
 `;
 
