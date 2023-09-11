@@ -70,7 +70,7 @@ const Link = ({id,link,deleteLink}) => {
         deleteLink(link.id);
     }
 
-    console.log(attributes["aria-pressed"]);
+    console.log(attributes);
     //console.log(listeners);
     //console.log(setNodeRef);
     //console.log(transform);
@@ -79,9 +79,9 @@ const Link = ({id,link,deleteLink}) => {
     const style = {
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
         transition: transition,
-        zIndex: transform ? '999' : undefined, // 드래그 중인 아이템을 위로 띄움
+        zIndex: attributes["aria-pressed"] ? '999' : undefined, // 드래그 중인 아이템을 위로 띄움
         boxShadow: attributes["aria-pressed"] ? '0px 5px 15px rgba(0, 0, 0, 0.3)' : undefined, // 드래그 중에 그림자 효과
-        //backgroundColor : attributes["aria-pressed"] ? 'white' : undefined
+        backgroundColor : attributes["aria-pressed"] ? '#4A4A4D;' : undefined
     };
 
     const onClickHandler = () => {

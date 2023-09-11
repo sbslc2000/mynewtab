@@ -17,7 +17,6 @@ const Wrapper = styled.div`
 const MainPage = ({pageNavigateHandler}) => {
 
 
-
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.metaKey && event.key === 'l') {
