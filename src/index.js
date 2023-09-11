@@ -5,6 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// 페이지가 로드되면 body에 loaded 클래스를 추가
+// 화면 최초 깜빡임 제어
+window.onload = () => {
+    document.body.classList.add('loaded');
+}
+
 root.render(
     <App />
 );

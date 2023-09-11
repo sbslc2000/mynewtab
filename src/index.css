@@ -7,6 +7,9 @@ body {
     color: #E8E9EC;
     overflow: hidden;
 
+}
+
+body.loaded {
     transition: ease 0.5s;
 }
 

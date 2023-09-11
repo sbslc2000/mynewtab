@@ -4,18 +4,33 @@ import { ThemeProvider as StyledProvider } from 'styled-components';
 
 const ThemeContext = createContext({});
 const ThemeProvider = ({children}) => {
+
     const [ThemeMode, setThemeMode] = useState('dark');
     const themeObject = ThemeMode === 'light' ? lightTheme : darkTheme;
+
+    useEffect(() => {
+        const theme = localStorage.getItem('theme');
+        if (theme) {
+            setThemeMode(theme);
+        }
+    }, []);
+
+    // 테마 모드가 변경될 때마다 localStorage를 업데이트
+    useEffect(() => {
+        localStorage.setItem('theme', ThemeMode);
+    }, [ThemeMode]);
+
 
     useEffect(() => {
         const handleKeyDown = (event) => {
             const isCommandOrCtrl = event.metaKey || event.ctrlKey;
             const isShift = event.shiftKey;
-            const isD = event.code === 'KeyD';
+            const isL = event.code === 'KeyL';
 
-            if (isCommandOrCtrl && isShift && isD) {
+            if (isCommandOrCtrl && isShift && isL) {
                 event.preventDefault();
                 setThemeMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+                localStorage.setItem('theme', ThemeMode);
             }
         };
 

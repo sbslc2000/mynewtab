@@ -69,12 +69,6 @@ const Link = ({id,link,deleteLink}) => {
         deleteLink(link.id);
     }
 
-    console.log(attributes);
-    //console.log(listeners);
-    //console.log(setNodeRef);
-    //console.log(transform);
-    //console.log(transition);
-
     const style = {
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
         transition: transition,

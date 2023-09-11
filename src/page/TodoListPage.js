@@ -13,7 +13,7 @@ const TodoListPage = ({pageNavigateHandler}) => {
 
     useEffect(() => {
         const handleKeyDown = (event) => {
-            if (event.metaKey && event.key === 'j') {
+            if (event.metaKey && event.key === 'z') {
                 event.preventDefault();
                 onLeftClickHandler();
             }

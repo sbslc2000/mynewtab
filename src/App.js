@@ -21,7 +21,6 @@ function AnimationApp() {
 
     const classNames = direction === "left" ? "slideRight" : "slideLeft";
 
-    console.log(location.key);
     return (
         <TransitionGroup>
             <CSSTransition

@@ -19,7 +19,7 @@ const MainPage = ({pageNavigateHandler}) => {
 
     useEffect(() => {
         const handleGoRight = (event) => {
-            if (event.metaKey && event.key === 'l') {
+            if (event.metaKey && event.key === '/') {
                 event.preventDefault();
                 onRightClickHandler();
             }
