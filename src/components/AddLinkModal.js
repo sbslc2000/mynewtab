@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -77,6 +77,20 @@ const Label = styled.label`
 `;
 
 const AddLinkModal = ({isOpen, close, addLink}) => {
+
+    useEffect(() => {
+        const handleKeydown = (e) => {
+            if (e.key === 'Escape') {
+                close();
+            }
+        }
+
+        window.addEventListener('keydown', handleKeydown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeydown);
+        }
+    }, []);
 
     const [name, setName] = useState("");
     const [url, setUrl] = useState("");

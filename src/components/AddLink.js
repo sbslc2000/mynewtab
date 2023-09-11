@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {FiEdit} from "react-icons/fi";
 import {AiOutlinePlus} from "react-icons/ai";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AddLinkModal from "./AddLinkModal";
 
 const Wrapper = styled.a`
@@ -62,6 +62,22 @@ const LinkSettingBtn = styled.button`
 
 const AddLink = ({addLink}) => {
 
+    useEffect(() => {
+        const handleAddLink = (event) => {
+            if (event.metaKey && event.key === 'b') {
+                event.preventDefault();
+                onClickHandler(event);
+            }
+        };
+
+        document.addEventListener('keydown', handleAddLink);
+
+        // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
+        return () => {
+            document.removeEventListener('keydown', handleAddLink);
+        };
+    }, []);
+
     const [isModalOpen, setModalOpen] = useState(false);
 
     const openModal = () => setModalOpen(true);
@@ -74,7 +90,7 @@ const AddLink = ({addLink}) => {
     }
 
     return (
-        <Wrapper onClick={onClickHandler}>
+        <Wrapper onClick={onClickHandler} title={"⌘ + B"}>
             <LinkIcon>
                 <AiOutlinePlus />
             </LinkIcon>

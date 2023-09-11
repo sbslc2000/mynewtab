@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   
-  > svg {
+  > div {
     font-size: 25px;
     
     &:hover {
@@ -24,12 +24,17 @@ const PageNavigator = ({onLeftClickHandler, onRightClickHandler}) => {
 
     return (
         <Wrapper>
-            {onLeftClickHandler ? <IoMdArrowDropleftCircle
-                onClick={onLeftClickHandler}
-            /> : <div/>}
-            {onRightClickHandler ? <IoMdArrowDroprightCircle
-                onClick={onRightClickHandler}
-            /> : <div/>}
+            {onLeftClickHandler ?
+                <div title={"⌘ + J"}>
+                    <IoMdArrowDropleftCircle
+                        onClick={onLeftClickHandler}
+                    />
+                </div> : <div/>}
+            {onRightClickHandler ? <div   title={"⌘ + L"}>
+                <IoMdArrowDroprightCircle
+                    onClick={onRightClickHandler}
+                />
+            </div>: <div/>}
         </Wrapper>
     );
 }

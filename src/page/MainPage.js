@@ -18,18 +18,18 @@ const MainPage = ({pageNavigateHandler}) => {
 
 
     useEffect(() => {
-        const handleKeyDown = (event) => {
+        const handleGoRight = (event) => {
             if (event.metaKey && event.key === 'l') {
                 event.preventDefault();
                 onRightClickHandler();
             }
         };
 
-        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('keydown', handleGoRight);
 
         // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
         return () => {
-            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keydown', handleGoRight);
         };
     }, []);
 
