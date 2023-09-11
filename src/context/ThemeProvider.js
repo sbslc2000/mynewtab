@@ -14,6 +14,7 @@ const ThemeProvider = ({children}) => {
             const isD = event.code === 'KeyD';
 
             if (isCommandOrCtrl && isShift && isD) {
+                event.preventDefault();
                 setThemeMode((prev) => (prev === 'light' ? 'dark' : 'light'));
             }
         };
