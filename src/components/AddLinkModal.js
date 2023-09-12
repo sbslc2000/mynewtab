@@ -63,11 +63,12 @@ const Button = styled.button`
   padding: 8px;
   margin: 8px;
   width: 70px;
-  background-color: #404245;
+  //background-color: #404245;
   border-radius: 7px;
-  
+
+  background-color: ${props => props.disabled ?  "inherit": "#96B3F5"};
   ${props => props.cancel ? "background-color: inherit;border: 1px solid #606368;" : ""}
-  background-color: ${props => props.addable ? "#96B3F5" : "inherit"};
+  
   
 `;
 
@@ -143,7 +144,7 @@ const AddLinkModal = ({isOpen, close, addLink}) => {
                                         onSubmitHandler();
                                     }
                                 }}
-                                addable={name.length > 0 && url.length > 0}
+                                disabled={!(name.length > 0 && url.length > 0)} // 조건 수정
                             >
                                 추가
                             </Button>

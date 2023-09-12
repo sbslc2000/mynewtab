@@ -1,5 +1,11 @@
 export const extractFavicon = async (url) => {
-    const urlObject = new URL(url);
+    let urlObject;
+    try {
+        urlObject = new URL(url);
+    } catch (error) {
+        return "";
+    }
+
     console.log(urlObject);
     const origin = urlObject.origin;
     const href = urlObject.href;

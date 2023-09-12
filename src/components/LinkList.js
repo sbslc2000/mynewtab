@@ -41,14 +41,23 @@ const LinkList = () => {
 
     }, []);
 
+    const filterUrl = (url) => {
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+            return url;
+        } else {
+            return 'http://' + url;
+        }
+    }
+
 
     const addLink = (name, url) => {
-        extractFavicon(url).then((favicon) => {
-            console.log(favicon);
+
+        const filteredUrl = filterUrl(url);
+        extractFavicon(filteredUrl).then((favicon) => {
             const newLink = {
                 id: linksLastId,
                 name: name,
-                url: url,
+                url: filteredUrl,
                 favicon: favicon
             }
 
