@@ -2,6 +2,7 @@ import PageNavigator from "../components/PageNavigator";
 import styled from "styled-components";
 import {useEffect} from "react";
 import TodoList from "../components/todo/TodoList";
+import Header from "../components/Header";
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,13 +16,9 @@ const TodoListPage = ({leftHandler, rightHandler}) => {
 
     return (
         <Wrapper>
-            <PageNavigator
-                onRightClickHandler={rightHandler}
-                onLeftClickHandler={leftHandler}/>
-            <h1>
-                TodoList
-            </h1>
-            <TodoList></TodoList>
+            <div style={{fontSize: 40,display:"flex",justifyContent:"center",paddingTop:100}}>
+                Coming Soon!
+            </div>
         </Wrapper>
     );
 }

@@ -21,11 +21,6 @@ const MainPage = ({leftHandler, rightHandler}) => {
 
     return (
         <Wrapper>
-            <PageNavigator
-                onLeftClickHandler={leftHandler}
-                onRightClickHandler={rightHandler}/>
-            <Header />
-            <Sidebar></Sidebar>
             <SearchInput></SearchInput>
             <LinkList/>
         </Wrapper>

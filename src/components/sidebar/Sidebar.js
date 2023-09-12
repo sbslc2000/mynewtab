@@ -20,7 +20,7 @@ const Menu = styled.div`
   background-color: ${({theme}) => theme.bgColor};
   transition: 0.3s;
   flex-shrink: 0;
-  z-index: 50;
+  z-index: 30;
 `;
 
 const SettingBtnStyle = styled.div`
@@ -41,9 +41,9 @@ const Hider = styled.div`
 `;
 
 
-const Sidebar = () => {
+const Sidebar = ({isMenuOpen,setIsMenuOpen}) => {
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 
 
     const toggleMenuBar = () => {

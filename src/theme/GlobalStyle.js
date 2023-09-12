@@ -8,5 +8,10 @@ export const GlobalStyle = createGlobalStyle`
 		background-color: ${({theme}) => theme.bgColor};
         color: ${({theme}) => theme.textColor};
 		overflow: hidden;
+
+      ::-webkit-scrollbar-thumb {
+        background-color: ${({theme}) => theme.linkHover};
+        outline: 1px solid ${({theme}) => theme.linkHover};
+      }
 	}
 `;

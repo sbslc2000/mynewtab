@@ -4,8 +4,8 @@ import {useNavigate} from "react-router-dom";
 
 const Wrapper = styled.div`
   position: fixed;
-  top: 50%;
-  z-index: 40;
+  top: 50vh;
+  z-index: 5;
   width: 100%;
   padding: 20px;
   display: flex;
@@ -21,7 +21,9 @@ const Wrapper = styled.div`
   }
 `;
 
-const PageNavigator = ({onLeftClickHandler, onRightClickHandler}) => {
+const PageNavigator = ({onLeftClickHandler, onRightClickHandler, isMenuOpen}) => {
+
+    if(isMenuOpen) return (<div/>);
 
     return (
         <Wrapper>

@@ -3,14 +3,10 @@ import Link from "./Link";
 import {useCallback, useEffect, useState} from "react";
 import AddLink from "./AddLink";
 import {extractFavicon} from "../util/FaviconExtractor";
-import {DndProvider} from "react-dnd";
-import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {
-    closestCenter,
     DndContext,
     KeyboardSensor,
     MouseSensor,
-    PointerSensor,
     TouchSensor,
     useSensor,
     useSensors
@@ -19,10 +15,10 @@ import {rectSortingStrategy, SortableContext, sortableKeyboardCoordinates} from 
 
 const Wrapper = styled.div`
 
-  max-width: 620px;
+  max-width: 628px;
   max-height: 620px;
   min-height: 238px;
-  overflow: scroll;
+  overflow-y: scroll;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -44,6 +40,7 @@ const LinkList = () => {
         setLinksLastId(linksLastId);
 
     }, []);
+
 
     const addLink = (name, url) => {
         extractFavicon(url).then((favicon) => {
@@ -117,7 +114,7 @@ const LinkList = () => {
      *
      */
     return (
-        <Wrapper>
+        <Wrapper >
             <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
                 <SortableContext items={links.map(link => link.id)} strategy={rectSortingStrategy}>
                     {links.map((link, index) => {

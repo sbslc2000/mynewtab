@@ -17,3 +17,12 @@ a {
     color: inherit;
     text-decoration: none;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: dimgray;
+    outline: 1px solid slategrey;
+}

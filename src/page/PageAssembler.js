@@ -4,13 +4,16 @@ import TodoListPage from "./TodoListPage";
 import styled from "styled-components";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 import "./Slide.css";
+import Header from "../components/Header";
+import Sidebar from "../components/sidebar/Sidebar";
+import PageNavigator from "../components/PageNavigator";
 
 const Wrapper = styled.div`
-  display: flex;
+  //display: flex;
 `;
 
 const PAGE_LIST = [
-    MainPage
+    MainPage, TodoListPage
 ];
 
 const getLeftIndex = (index) => {
@@ -94,22 +97,29 @@ const PageAssembler = () => {
 
     console.log(currentIndex);
 
+    //menu - page navigator 처리
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+
     return (
 
+        <Wrapper>
+            <Header />
+            <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></Sidebar>
+            <PageNavigator
+                isMenuOpen={isMenuOpen}
+                onLeftClickHandler={leftIndex !== null ? () => pageIndexHandler(leftIndex) : null}
+                onRightClickHandler={rightIndex !== null ? () => pageIndexHandler(rightIndex) : null}/>
         <TransitionGroup>
             <CSSTransition
                 key={currentIndex}
                 timeout={300}
                 classNames={classNames}
             >
-                <Wrapper>
-                    <CurrentPage
-                        leftHandler={leftIndex !== null ? () => pageIndexHandler(leftIndex) : null}
-                        rightHandler={rightIndex !== null ? () => pageIndexHandler(rightIndex) : null}
-                    />
-                </Wrapper>
+                    <CurrentPage/>
             </CSSTransition>
         </TransitionGroup>
+        </Wrapper>
 
 
     );
