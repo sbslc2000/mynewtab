@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 const Wrapper = styled.div`
   position: fixed;
   top: 50%;
+  z-index: 40;
   width: 100%;
   padding: 20px;
   display: flex;

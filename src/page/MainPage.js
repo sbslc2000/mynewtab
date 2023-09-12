@@ -12,36 +12,20 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  width: 100vw;
+  
+  flex-shrink : 0;
 `;
 
-const MainPage = ({pageNavigateHandler}) => {
+const MainPage = ({leftHandler, rightHandler}) => {
 
-
-    useEffect(() => {
-        const handleGoRight = (event) => {
-            if (event.metaKey && event.key === '/') {
-                event.preventDefault();
-                onRightClickHandler();
-            }
-        };
-
-        document.addEventListener('keydown', handleGoRight);
-
-        // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
-        return () => {
-            document.removeEventListener('keydown', handleGoRight);
-        };
-    }, []);
-
-    const onRightClickHandler = () => {
-        pageNavigateHandler("/todo", "right");
-    }
     return (
         <Wrapper>
             <PageNavigator
-                onRightClickHandler={onRightClickHandler}/>
+                onLeftClickHandler={leftHandler}
+                onRightClickHandler={rightHandler}/>
             <Header />
-            <Sidebar>HI</Sidebar>
+            <Sidebar></Sidebar>
             <SearchInput></SearchInput>
             <LinkList/>
         </Wrapper>

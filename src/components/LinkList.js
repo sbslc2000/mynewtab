@@ -20,11 +20,14 @@ import {rectSortingStrategy, SortableContext, sortableKeyboardCoordinates} from 
 const Wrapper = styled.div`
 
   max-width: 620px;
+  max-height: 620px;
+  min-height: 238px;
+  overflow: scroll;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 
-  padding: 30px;
+  padding: 0 30px;
 `;
 const LinkList = () => {
 
@@ -43,20 +46,22 @@ const LinkList = () => {
     }, []);
 
     const addLink = (name, url) => {
-        let favicon = extractFavicon(url);
-        const newLink = {
-            id: linksLastId,
-            name: name,
-            url: url,
-            favicon: favicon
-        }
+        extractFavicon(url).then((favicon) => {
+            console.log(favicon);
+            const newLink = {
+                id: linksLastId,
+                name: name,
+                url: url,
+                favicon: favicon
+            }
 
-        const newLinksLastId = linksLastId + 1;
+            const newLinksLastId = linksLastId + 1;
 
-        setLinksLastId(newLinksLastId);
-        setLinks([...links, newLink]);
-        localStorage.setItem('links', JSON.stringify([...links, newLink]));
-        localStorage.setItem('linksLastId', newLinksLastId);
+            setLinksLastId(newLinksLastId);
+            setLinks([...links, newLink]);
+            localStorage.setItem('links', JSON.stringify([...links, newLink]));
+            localStorage.setItem('linksLastId', newLinksLastId);
+        }).catch((error) => {});
     }
 
     const deleteLink = (id) => {

@@ -20,11 +20,13 @@ const Menu = styled.div`
   background-color: ${({theme}) => theme.bgColor};
   transition: 0.3s;
   flex-shrink: 0;
+  z-index: 50;
 `;
 
 const SettingBtnStyle = styled.div`
   font-size: 30px;
   padding : 15px;
+  height: 60px;
 
   &:hover {
     cursor: pointer;

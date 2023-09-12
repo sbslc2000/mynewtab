@@ -8,31 +8,16 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  width:100vw;
+  flex-shrink : 0;
 `;
-const TodoListPage = ({pageNavigateHandler}) => {
+const TodoListPage = ({leftHandler, rightHandler}) => {
 
-    useEffect(() => {
-        const handleKeyDown = (event) => {
-            if (event.metaKey && event.key === 'z') {
-                event.preventDefault();
-                onLeftClickHandler();
-            }
-        };
-
-        document.addEventListener('keydown', handleKeyDown);
-
-        // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-        };
-    }, []);
-
-    const onLeftClickHandler = () => {
-        pageNavigateHandler("/", "left");
-    }
     return (
         <Wrapper>
-            <PageNavigator onLeftClickHandler={onLeftClickHandler}/>
+            <PageNavigator
+                onRightClickHandler={rightHandler}
+                onLeftClickHandler={leftHandler}/>
             <h1>
                 TodoList
             </h1>

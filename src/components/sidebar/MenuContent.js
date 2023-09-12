@@ -7,6 +7,7 @@ import {useTheme} from "../../context/ThemeProvider";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  z-index: 60;
 `;
 
 const CloseBtn = styled.div`

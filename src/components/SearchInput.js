@@ -6,6 +6,8 @@ import {useTheme} from "../context/ThemeProvider";
 
 const Wrapper = styled.div`
 
+  margin-top: 10px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: row;
   align-items: center;
