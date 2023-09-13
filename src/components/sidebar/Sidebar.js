@@ -45,7 +45,6 @@ const Sidebar = ({isMenuOpen,setIsMenuOpen}) => {
 
     useEffect(() => {
         const handleClose = (event) => {
-            console.log("hi");
             if ((event.key === 'Escape') && isMenuOpen) {
                 event.preventDefault();
                 setIsMenuOpen(false);
