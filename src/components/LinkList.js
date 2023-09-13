@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "./Link";
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import AddLink from "./AddLink";
 import {extractFavicon} from "../util/FaviconExtractor";
 import {
@@ -17,7 +17,6 @@ const Wrapper = styled.div`
 
   max-width: 628px;
   max-height: 620px;
-  min-height: 238px;
   overflow-y: scroll;
   display: flex;
   flex-direction: row;
@@ -49,7 +48,6 @@ const LinkList = () => {
         }
     }
 
-
     const addLink = (name, url) => {
 
         const filteredUrl = filterUrl(url);
@@ -72,16 +70,6 @@ const LinkList = () => {
 
     const deleteLink = (id) => {
         const newLinks = links.filter(link => link.id !== id);
-        setLinks(newLinks);
-        localStorage.setItem('links', JSON.stringify(newLinks));
-    }
-
-    const handleEnd = (result) => {
-        if (!result.destination) return;
-
-        const newLinks = links;
-        const [reorderedItem] = newLinks.splice(result.source.index, 1);
-        newLinks.splice(result.destination.index, 0, reorderedItem);
         setLinks(newLinks);
         localStorage.setItem('links', JSON.stringify(newLinks));
     }
@@ -118,10 +106,6 @@ const LinkList = () => {
         }
     }
 
-    /**
-     * todo: horizontal 과 vertical 이동을 동시에 처리할 수 있게 해야
-     *
-     */
     return (
         <Wrapper >
             <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
@@ -135,7 +119,6 @@ const LinkList = () => {
 
             <AddLink addLink={addLink}/>
         </Wrapper>
-
     );
 }
 
