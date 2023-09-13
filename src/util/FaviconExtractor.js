@@ -6,7 +6,6 @@ export const extractFavicon = async (url) => {
         return "";
     }
 
-    console.log(urlObject);
     const origin = urlObject.origin;
     const href = urlObject.href;
     const possiblePaths = [

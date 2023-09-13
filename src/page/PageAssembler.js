@@ -28,18 +28,14 @@ const PageAssembler = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState();
 
-
     /*
         페이지 이동 단축키
      */
-
     useEffect(() => {
         const handleGoRight = (event) => {
             if ((event.metaKey && event.key === '/') || (event.ctrlKey && event.key === '/')) {
-                console.log("right");
                 event.preventDefault();
                 const rightIndex = getRightIndex(currentIndex);
-                console.log(rightIndex);
                 if(rightIndex !== null) {
                     setDirection("right");
                     setCurrentIndex(rightIndex);
@@ -49,7 +45,6 @@ const PageAssembler = () => {
 
         const handleGoLeft = (event) => {
             if ((event.metaKey && event.key === 'z') || (event.ctrlKey && event.key === 'z')) {
-                console.log("left");
                 event.preventDefault();
                 const leftIndex = getLeftIndex(currentIndex);
                 if(leftIndex !== null) {
@@ -69,12 +64,9 @@ const PageAssembler = () => {
         };
     }, [currentIndex]);
 
-
-
     /*
     이하 로직
      */
-
 
     const pageIndexHandler = (index) => {
         if(index > currentIndex) {
@@ -84,22 +76,16 @@ const PageAssembler = () => {
         }
 
         setCurrentIndex(index);
-        console.log(index);
     }
 
     const classNames = direction === "left" ? "slideRight" : "slideLeft";
-
-
 
     const CurrentPage = PAGE_LIST[currentIndex];
     const leftIndex = getLeftIndex(currentIndex)
     const rightIndex = getRightIndex(currentIndex);
 
-    console.log(currentIndex);
-
     //menu - page navigator 처리
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
 
     return (
 
