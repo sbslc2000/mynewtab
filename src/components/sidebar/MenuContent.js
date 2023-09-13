@@ -26,7 +26,7 @@ const ContentWrapper = styled.div`
 
 const H1 = styled.h1`
   font-size: 23px;
-  margin: 10px 0;
+  margin: 20px 0 5px 0;
 `;
 
 const H2Link = styled.a`
@@ -41,6 +41,7 @@ const H2Link = styled.a`
 
 const H2 = styled.h2`
   font-size: 17px;
+  margin: 1px 0;
 `;
 
 
@@ -56,16 +57,22 @@ const MenuContent = ({closeHandler}) => {
 
             </CloseBtn>
             <ContentWrapper>
+                <H1>MyNewTab</H1>
+                <H2>Version 1.0.0</H2>
                 <H1>사용 방법</H1>
                 <H2Link href={"https://sbslc.notion.site/My-New-Tab-7fad461628cd440b99bc803cfb56d8d0?pvs=4"}
                 >
                     노션 바로가기
                 </H2Link>
-                <H2>⌘ + Z : 좌측 페이지로 이동</H2>
-                <H2>⌘ + / : 우측 페이지로 이동</H2>
+                <H1>단축키</H1>
+
+                <H2>좌측 페이지로 이동 : ⌘ + Z </H2>
+                <H2>우측 페이지로 이동 : ⌘ + / </H2>
+                <H2>검색창 커서 이동 : ⌘ + s </H2>
+                <H2>테마 변경 : ⌘ + shift + L</H2>
+                <H2>바로가기 추가 : ⌘ + b</H2>
                 <br/>
-                <H1>설정</H1>
-                <H2>테마 변경  ⌘ + shift + L</H2>
+                <H2>윈도우 사용자 : ⌘ → Ctrl</H2>
             </ContentWrapper>
         </Wrapper>
     );

@@ -64,7 +64,7 @@ const AddLink = ({addLink}) => {
 
     useEffect(() => {
         const handleAddLink = (event) => {
-            if (event.metaKey && event.key === 'b') {
+            if ((event.metaKey && event.key === 'b') || (event.ctrlKey && event.key === 'b')) {
                 event.preventDefault();
                 onClickHandler(event);
             }

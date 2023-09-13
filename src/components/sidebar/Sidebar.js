@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {AiOutlineSetting} from "react-icons/ai";
 import MenuContent from "./MenuContent";
 
@@ -43,6 +43,22 @@ const Hider = styled.div`
 
 const Sidebar = ({isMenuOpen,setIsMenuOpen}) => {
 
+    useEffect(() => {
+        const handleClose = (event) => {
+            console.log("hi");
+            if ((event.key === 'Escape') && isMenuOpen) {
+                event.preventDefault();
+                setIsMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('keydown', handleClose);
+
+        // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
+        return () => {
+            document.removeEventListener('keydown', handleClose);
+        };
+    }, [isMenuOpen]);
 
 
 

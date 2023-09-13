@@ -35,7 +35,7 @@ const PageAssembler = () => {
 
     useEffect(() => {
         const handleGoRight = (event) => {
-            if (event.metaKey && event.key === '/') {
+            if ((event.metaKey && event.key === '/') || (event.ctrlKey && event.key === '/')) {
                 console.log("right");
                 event.preventDefault();
                 const rightIndex = getRightIndex(currentIndex);
@@ -48,7 +48,7 @@ const PageAssembler = () => {
         };
 
         const handleGoLeft = (event) => {
-            if (event.metaKey && event.key === 'z') {
+            if ((event.metaKey && event.key === 'z') || (event.ctrlKey && event.key === 'z')) {
                 console.log("left");
                 event.preventDefault();
                 const leftIndex = getLeftIndex(currentIndex);
