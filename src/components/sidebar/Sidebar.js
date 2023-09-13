@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
+  height: ${props => props.isOpen ? "100%;" : "60px;"};
   z-index: 1;
   
   width: ${props => props.isOpen ? "100%;" : undefined};
