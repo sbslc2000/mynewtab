@@ -6,10 +6,12 @@ const Wrapper = styled.div`
   position: fixed;
   top: 50vh;
   width: 100%;
-  padding: 20px;
+  height: 0;
+  padding: 0 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  z-index: 1;
   > div {
     font-size: 25px;
     

@@ -6,10 +6,10 @@
     transform: translateX(0);
 }
 .slideRight-exit {
-    transform: translateX(0);
+    /*transform: translateX(0);*/
 }
 .slideRight-exit-active {
-    transform: translateX(100%);
+    /*transform: translateX(100%);*/
 }
 
 /* 왼쪽으로 슬라이드 */
@@ -20,21 +20,25 @@
     transform: translateX(0);
 }
 .slideLeft-exit {
-    transform: translateX(0);
+    /*transform: translateX(0);*/
 }
 .slideLeft-exit-active {
-    transform: translateX(-100%);
+    /*transform: translateX(-100%);*/
 }
 
 /* 공통 transition 설정 */
-.slideRight-enter,
-.slideRight-enter-active,
+
 .slideRight-exit,
 .slideRight-exit-active,
-.slideLeft-enter,
-.slideLeft-enter-active,
 .slideLeft-exit,
 .slideLeft-exit-active {
-    transition: transform 300ms ease-in-out;
+    display: none;
+    transition: transform 0ms ease-in-out;
 }
 
+.slideRight-enter,
+.slideRight-enter-active,
+.slideLeft-enter,
+.slideLeft-enter-active {
+    transition: transform 300ms ease-in-out;
+}

@@ -5,11 +5,18 @@
 .slideRight-enter-active {
     transform: translateX(0);
 }
+
 .slideRight-exit {
     transform: translateX(0);
+    position: absolute;
+    top: 60px;
+    left: 0;
 }
 .slideRight-exit-active {
-    transform: translateX(100%);
+   transform: translateX(-100%);
+    position: absolute;
+    top: 60px;
+    left: 0;
 }
 
 /* 왼쪽으로 슬라이드 */
@@ -21,9 +28,15 @@
 }
 .slideLeft-exit {
     transform: translateX(0);
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 .slideLeft-exit-active {
-    transform: translateX(-100%);
+    transform: translateX(100%);
+    position: absolute;
+    top: 60px;
+    left: 0;
 }
 
 /* 공통 transition 설정 */
@@ -35,6 +48,6 @@
 .slideLeft-enter-active,
 .slideLeft-exit,
 .slideLeft-exit-active {
-    transition: transform 300ms ease-in-out;
+    transition: transform 600ms ease-in-out;
 }
 
