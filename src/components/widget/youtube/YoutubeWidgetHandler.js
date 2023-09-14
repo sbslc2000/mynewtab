@@ -1,18 +1,29 @@
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import YoutubeWidget from "./YoutubeWidget";
+import {YoutubeContext} from "../../../page/PageAssembler";
 
-const PLAYLIST = {
-    "tired" : "https://www.youtube.com/embed/DVQOazBqfEU?si=57-V81uctWWn3vKV",
-}
-const YoutubeWidgetHandler = ({x,y}) => {
 
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [X, setX] = useState()
+const YoutubeWidgetHandler = ({x,y,isPlaying, url}) => {
 
+    const YoutubeState = useContext(YoutubeContext);
+
+    useEffect(() => {
+        const handleKeydown = (e) => {
+            if (e.key === 'Escape') {
+                YoutubeState.setIsPlaying(false);
+            }
+        }
+
+        window.addEventListener('keydown', handleKeydown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeydown);
+        }
+    }, []);
 
     return (
         <div>
-            {isPlaying && <YoutubeWidget x={x} y={y} src={PLAYLIST.tired}/>}
+            {isPlaying && <YoutubeWidget x={x} y={y} src={url}/>}
         </div>
     );
 }

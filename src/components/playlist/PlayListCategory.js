@@ -13,9 +13,9 @@ const Wrapper = styled.div`
     cursor: pointer;
   }
 `;
-const PlayListCategory = ({title}) => {
+const PlayListCategory = ({title, onClick}) => {
     return (
-        <Wrapper>
+        <Wrapper onClick={onClick}>
             {title}
         </Wrapper>
     );

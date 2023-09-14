@@ -21,6 +21,9 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
+const YoutubeContext = React.createContext();
+
+
 const PAGE_LIST = [
     MainPage, PlayListPage, TodoListPage,
 ];
@@ -106,11 +109,28 @@ const PageAssembler = () => {
     const [widgetX, setWidgetX] = useState(100);
     const [widgetY, setWidgetY] = useState(100);
 
+    //Youtube Context State
+    const [youtubeUrl, setYoutubeUrl] = useState(null);
+    const [isYoutubePlaying, setIsYoutubePlaying] = useState(false);
+
+    const [youtubeWidgetX, setYoutubeWidgetX] = useState(100);
+    const [youtubeWidgetY, setYoutubeWidgetY] = useState(100);
+
+    const youtubeContextValue = {
+        "url": youtubeUrl,
+        "setUrl": setYoutubeUrl,
+        "isPlaying": isYoutubePlaying,
+        "setIsPlaying": setIsYoutubePlaying,
+    }
 
     const handleDragEnd = (result) => {
-        console.log(result);
         const {active, over} = result;
         if (active.id !== over.id) {
+
+            if(result.activatorEvent.offsetX < 30 && result.activatorEvent.offsetY < 30) {
+                setIsYoutubePlaying(false);
+                return;
+            }
 
 
             const xDiff = result.delta.x;
@@ -122,7 +142,7 @@ const PageAssembler = () => {
             const widgetWidth = 400;
             const widgetHeight = 250;
 
-            let newX = widgetX + xDiff;
+            let newX = youtubeWidgetX + xDiff;
             if (newX + widgetWidth > innerWidth) {
                 newX = innerWidth - widgetWidth;
             }
@@ -130,7 +150,7 @@ const PageAssembler = () => {
                 newX = 0;
             }
 
-            let newY = widgetY + yDiff;
+            let newY = youtubeWidgetY + yDiff;
             if (newY + widgetHeight > innerHeight) {
                 newY = innerHeight - widgetHeight;
             }
@@ -138,49 +158,49 @@ const PageAssembler = () => {
                 newY = 0;
             }
 
-            setWidgetX(newX);
-            setWidgetY(newY);
-
+            setYoutubeWidgetX(newX);
+            setYoutubeWidgetY(newY);
         }
 
     }
     // <YoutubeWidget x={widgetX} y={widgetY} />
     return (
-
-        <Wrapper>
-            <DndContext onDragEnd={handleDragEnd}>
-                <DroppableWrapper>
-                    <YoutubeWidgetHandler x={widgetX} y={widgetY}/>
-                    <Header/>
-                    <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></Sidebar>
-                    <PageNavigator
-                        isMenuOpen={isMenuOpen}
-                        onLeftClickHandler={leftIndex !== null ? () => pageIndexHandler(leftIndex) : null}
-                        onRightClickHandler={rightIndex !== null ? () => pageIndexHandler(rightIndex) : null}/>
-                    <TransitionGroup style={{height: "100%",position:"relative"}}
-                                     childFactory={child => React.cloneElement(
-                                         child, {
-                                             timeout: 500,
-                                             classNames: `slide${direction}`
-                                         }
-                                     )}
-                    >
-                        <CSSTransition
-                            key={currentIndex}
-                            timeout={500}
-                            classNames={`slide${direction}`}
-
+        <YoutubeContext.Provider value={youtubeContextValue}>
+            <Wrapper>
+                <DndContext onDragEnd={handleDragEnd}>
+                    <DroppableWrapper>
+                        <YoutubeWidgetHandler x={youtubeWidgetX} y={youtubeWidgetY} isPlaying={isYoutubePlaying} url={youtubeUrl}/>
+                        <Header/>
+                        <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></Sidebar>
+                        <PageNavigator
+                            isMenuOpen={isMenuOpen}
+                            onLeftClickHandler={leftIndex !== null ? () => pageIndexHandler(leftIndex) : null}
+                            onRightClickHandler={rightIndex !== null ? () => pageIndexHandler(rightIndex) : null}/>
+                        <TransitionGroup style={{height: "100%", position: "relative"}}
+                                         childFactory={child => React.cloneElement(
+                                             child, {
+                                                 timeout: 500,
+                                                 classNames: `slide${direction}`
+                                             }
+                                         )}
                         >
-                            <CurrentPage/>
-                        </CSSTransition>
+                            <CSSTransition
+                                key={currentIndex}
+                                timeout={500}
+                                classNames={`slide${direction}`}
 
-                    </TransitionGroup>
-                </DroppableWrapper>
-            </DndContext>
-        </Wrapper>
+                            >
+                                <CurrentPage/>
+                            </CSSTransition>
 
+                        </TransitionGroup>
+                    </DroppableWrapper>
+                </DndContext>
+            </Wrapper>
+        </YoutubeContext.Provider>
 
     );
 }
 
 export default PageAssembler;
+export {YoutubeContext};
