@@ -2,43 +2,39 @@
 /* 오른쪽으로 슬라이드 */
 .slideRight-enter {
     transform: translateX(100%);
+    position: absolute;
 }
 .slideRight-enter-active {
     transform: translateX(0);
+    position: absolute;
 }
 
 .slideRight-exit {
     transform: translateX(0);
     position: absolute;
-    top: 60px;
-    left: 0;
 }
 .slideRight-exit-active {
     transform: translateX(-100%);
     position: absolute;
-    top: 60px;
-    left: 0;
 }
 
 /* 왼쪽으로 슬라이드 */
 .slideLeft-enter {
     transform: translateX(-100%);
+    position: absolute;
 }
 .slideLeft-enter-active {
     transform: translateX(0);
+    position: absolute;
 }
 
 .slideLeft-exit {
     transform: translateX(0);
     position: absolute;
-    top: 60px;
-    left: 0;
 }
 .slideLeft-exit-active {
     transform: translateX(100%);
     position: absolute;
-    top: 60px;
-    left: 0;
 }
 
 /* 공통 transition 설정 */

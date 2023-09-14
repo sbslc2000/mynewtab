@@ -14,6 +14,7 @@ import DroppableWrapper from "../components/widget/DroppableWrapper";
 import {DndContext} from "@dnd-kit/core";
 import YoutubeWidget from "../components/widget/youtube/YoutubeWidget";
 import YoutubeWidgetHandler from "../components/widget/youtube/YoutubeWidgetHandler";
+import PlayListPage from "./PlayListPage";
 
 const Wrapper = styled.div`
   //display: flex;
@@ -21,7 +22,7 @@ const Wrapper = styled.div`
 `;
 
 const PAGE_LIST = [
-    MainPage, TodoListPage
+    MainPage, PlayListPage, TodoListPage,
 ];
 
 const getLeftIndex = (index) => {
@@ -156,7 +157,7 @@ const PageAssembler = () => {
                         isMenuOpen={isMenuOpen}
                         onLeftClickHandler={leftIndex !== null ? () => pageIndexHandler(leftIndex) : null}
                         onRightClickHandler={rightIndex !== null ? () => pageIndexHandler(rightIndex) : null}/>
-                    <TransitionGroup style={{height: "100%"}}
+                    <TransitionGroup style={{height: "100%",position:"relative"}}
                                      childFactory={child => React.cloneElement(
                                          child, {
                                              timeout: 500,
@@ -170,7 +171,6 @@ const PageAssembler = () => {
                             classNames={`slide${direction}`}
 
                         >
-
                             <CurrentPage/>
                         </CSSTransition>
 
