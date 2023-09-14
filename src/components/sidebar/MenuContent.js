@@ -58,7 +58,7 @@ const MenuContent = ({closeHandler}) => {
             </CloseBtn>
             <ContentWrapper>
                 <H1>MyNewTab</H1>
-                <H2>Version 1.0.0</H2>
+                <H2>Version 1.0.1</H2>
                 <H1>사용 방법</H1>
                 <H2Link href={"https://sbslc.notion.site/My-New-Tab-7fad461628cd440b99bc803cfb56d8d0?pvs=4"}
                 >
