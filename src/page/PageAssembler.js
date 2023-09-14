@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import React from 'react';
 import MainPage from "./MainPage";
 import TodoListPage from "./TodoListPage";
 import styled from "styled-components";
@@ -11,7 +12,8 @@ import WidgetFrame from "../components/widget/WidgetFrame";
 import * as PropTypes from "prop-types";
 import DroppableWrapper from "../components/widget/DroppableWrapper";
 import {DndContext} from "@dnd-kit/core";
-import YoutubeWidget from "../components/widget/YoutubeWidget";
+import YoutubeWidget from "../components/widget/youtube/YoutubeWidget";
+import YoutubeWidgetHandler from "../components/widget/youtube/YoutubeWidgetHandler";
 
 const Wrapper = styled.div`
   //display: flex;
@@ -35,7 +37,8 @@ DroppableWrapper.propTypes = {children: PropTypes.node};
 const PageAssembler = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [direction, setDirection] = useState();
+    const [direction, setDirection] = useState("Right");
+
 
     /*
         페이지 이동 단축키
@@ -46,7 +49,7 @@ const PageAssembler = () => {
                 event.preventDefault();
                 const rightIndex = getRightIndex(currentIndex);
                 if (rightIndex !== null) {
-                    setDirection("right");
+                    setDirection("Right");
                     setCurrentIndex(rightIndex);
                 }
             }
@@ -57,7 +60,7 @@ const PageAssembler = () => {
                 event.preventDefault();
                 const leftIndex = getLeftIndex(currentIndex);
                 if (leftIndex !== null) {
-                    setDirection("left");
+                    setDirection("Left");
                     setCurrentIndex(leftIndex);
                 }
             }
@@ -73,21 +76,21 @@ const PageAssembler = () => {
         };
     }, [currentIndex]);
 
+    //const classNames = direction === "right" ? "slideRight" : "slideLeft";
+
     /*
     이하 로직
      */
 
     const pageIndexHandler = (index) => {
-        if (index > currentIndex) {
-            setDirection("right");
-        } else {
-            setDirection("left");
-        }
-
         setCurrentIndex(index);
+        if (index > currentIndex) {
+            setDirection("Right");
+        } else {
+            setDirection("Left");
+        }
     }
 
-    const classNames = direction === "left" ? "slideRight" : "slideLeft";
 
     const CurrentPage = PAGE_LIST[currentIndex];
     const leftIndex = getLeftIndex(currentIndex)
@@ -140,28 +143,37 @@ const PageAssembler = () => {
         }
 
     }
-
     // <YoutubeWidget x={widgetX} y={widgetY} />
     return (
 
         <Wrapper>
             <DndContext onDragEnd={handleDragEnd}>
-                <DroppableWrapper >
-                    <YoutubeWidget x={widgetX} y={widgetY}/>
+                <DroppableWrapper>
+                    <YoutubeWidgetHandler x={widgetX} y={widgetY}/>
                     <Header/>
                     <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></Sidebar>
                     <PageNavigator
                         isMenuOpen={isMenuOpen}
                         onLeftClickHandler={leftIndex !== null ? () => pageIndexHandler(leftIndex) : null}
                         onRightClickHandler={rightIndex !== null ? () => pageIndexHandler(rightIndex) : null}/>
-                    <TransitionGroup style={{height: "100%"}}>
+                    <TransitionGroup style={{height: "100%"}}
+                                     childFactory={child => React.cloneElement(
+                                         child, {
+                                             timeout: 500,
+                                             classNames: `slide${direction}`
+                                         }
+                                     )}
+                    >
                         <CSSTransition
                             key={currentIndex}
-                            timeout={600}
-                            classNames={classNames}
+                            timeout={500}
+                            classNames={`slide${direction}`}
+
                         >
-                                <CurrentPage/>
+
+                            <CurrentPage/>
                         </CSSTransition>
+
                     </TransitionGroup>
                 </DroppableWrapper>
             </DndContext>
