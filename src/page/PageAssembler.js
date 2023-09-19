@@ -1,206 +1,126 @@
-import {useEffect, useState} from "react";
-import React from 'react';
+import React, {useEffect, useState} from "react";
 import MainPage from "./MainPage";
 import TodoListPage from "./TodoListPage";
 import styled from "styled-components";
-import {TransitionGroup, CSSTransition} from "react-transition-group";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 import "./Slide.css";
-import Header from "../components/Header";
-import Sidebar from "../components/sidebar/Sidebar";
 import PageNavigator from "../components/PageNavigator";
-import WidgetFrame from "../components/widget/WidgetFrame";
-import * as PropTypes from "prop-types";
-import DroppableWrapper from "../components/widget/DroppableWrapper";
-import {DndContext} from "@dnd-kit/core";
-import YoutubeWidget from "../components/widget/youtube/YoutubeWidget";
-import YoutubeWidgetHandler from "../components/widget/youtube/YoutubeWidgetHandler";
 import PlayListPage from "./PlayListPage";
+import PageTemplate from "./PageTemplate";
 
 const Wrapper = styled.div`
   //display: flex;
   height: 100%;
 `;
 
-const YoutubeContext = React.createContext();
-
 
 const PAGE_LIST = [
-    MainPage, PlayListPage, TodoListPage,
+  MainPage, PlayListPage, TodoListPage,
 ];
 
-const getLeftIndex = (index) => {
-    return index - 1 < 0 ? null : index - 1;
+export const getLeftIndex = (index) => {
+  return index - 1 < 0 ? null : index - 1;
 }
 
-const getRightIndex = (index) => {
-    return index + 1 >= PAGE_LIST.length ? null : index + 1;
+export const getRightIndex = (index) => {
+  return index + 1 >= PAGE_LIST.length ? null : index + 1;
 }
 
-
-DroppableWrapper.propTypes = {children: PropTypes.node};
 const PageAssembler = () => {
 
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [direction, setDirection] = useState("Right");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState("Right");
 
-
-    /*
-        페이지 이동 단축키
-     */
-    useEffect(() => {
-        const handleGoRight = (event) => {
-            if ((event.metaKey && event.key === '/') || (event.ctrlKey && event.key === '/')) {
-                event.preventDefault();
-                const rightIndex = getRightIndex(currentIndex);
-                if (rightIndex !== null) {
-                    setDirection("Right");
-                    setCurrentIndex(rightIndex);
-                }
-            }
-        };
-
-        const handleGoLeft = (event) => {
-            if ((event.metaKey && event.key === 'z') || (event.ctrlKey && event.key === 'z')) {
-                event.preventDefault();
-                const leftIndex = getLeftIndex(currentIndex);
-                if (leftIndex !== null) {
-                    setDirection("Left");
-                    setCurrentIndex(leftIndex);
-                }
-            }
+  /*
+      페이지 이동 단축키
+   */
+  useEffect(() => {
+    const handleGoRight = (event) => {
+      if ((event.metaKey && event.key === '/') || (event.ctrlKey && event.key === '/')) {
+        event.preventDefault();
+        const rightIndex = getRightIndex(currentIndex);
+        if (rightIndex !== null) {
+          setDirection("Right");
+          setCurrentIndex(rightIndex);
         }
+      }
+    };
 
-        document.addEventListener('keydown', handleGoRight);
-        document.addEventListener('keydown', handleGoLeft);
-
-        // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
-        return () => {
-            document.removeEventListener('keydown', handleGoRight);
-            document.removeEventListener('keydown', handleGoLeft);
-        };
-    }, [currentIndex]);
-
-    //const classNames = direction === "right" ? "slideRight" : "slideLeft";
-
-    /*
-    이하 로직
-     */
-
-    const pageIndexHandler = (index) => {
-        setCurrentIndex(index);
-        if (index > currentIndex) {
-            setDirection("Right");
-        } else {
-            setDirection("Left");
+    const handleGoLeft = (event) => {
+      if ((event.metaKey && event.key === 'z') || (event.ctrlKey && event.key === 'z')) {
+        event.preventDefault();
+        const leftIndex = getLeftIndex(currentIndex);
+        if (leftIndex !== null) {
+          setDirection("Left");
+          setCurrentIndex(leftIndex);
         }
+      }
     }
 
+    document.addEventListener('keydown', handleGoRight);
+    document.addEventListener('keydown', handleGoLeft);
 
-    const CurrentPage = PAGE_LIST[currentIndex];
-    const leftIndex = getLeftIndex(currentIndex)
-    const rightIndex = getRightIndex(currentIndex);
+    // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
+    return () => {
+      document.removeEventListener('keydown', handleGoRight);
+      document.removeEventListener('keydown', handleGoLeft);
+    };
+  }, [currentIndex]);
 
-    //menu - page navigator 처리
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  //const classNames = direction === "right" ? "slideRight" : "slideLeft";
 
+  /*
+  이하 로직
+   */
 
-    //Widget Draggable
-
-    const [widgetX, setWidgetX] = useState(100);
-    const [widgetY, setWidgetY] = useState(100);
-
-    //Youtube Context State
-    const [youtubeUrl, setYoutubeUrl] = useState(null);
-    const [isYoutubePlaying, setIsYoutubePlaying] = useState(false);
-
-    const [youtubeWidgetX, setYoutubeWidgetX] = useState(100);
-    const [youtubeWidgetY, setYoutubeWidgetY] = useState(100);
-
-    const youtubeContextValue = {
-        "url": youtubeUrl,
-        "setUrl": setYoutubeUrl,
-        "isPlaying": isYoutubePlaying,
-        "setIsPlaying": setIsYoutubePlaying,
+  const pageIndexHandler = (index) => {
+    setCurrentIndex(index);
+    if (index > currentIndex) {
+      setDirection("Right");
+    } else {
+      setDirection("Left");
     }
-
-    const handleDragEnd = (result) => {
-        const {active, over} = result;
-        if (active.id !== over.id) {
-
-            if(result.activatorEvent.offsetX < 30 && result.activatorEvent.offsetY < 30) {
-                setIsYoutubePlaying(false);
-                return;
-            }
+  }
 
 
-            const xDiff = result.delta.x;
-            const yDiff = result.delta.y;
+  const CurrentPage = PAGE_LIST[currentIndex];
+  const leftIndex = getLeftIndex(currentIndex)
+  const rightIndex = getRightIndex(currentIndex);
 
-            const innerWidth = window.innerWidth;
-            const innerHeight = window.innerHeight;
+  //menu - page navigator 처리
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-            const widgetWidth = 400;
-            const widgetHeight = 250;
 
-            let newX = youtubeWidgetX + xDiff;
-            if (newX + widgetWidth > innerWidth) {
-                newX = innerWidth - widgetWidth;
-            }
-            if (newX < 0) {
-                newX = 0;
-            }
+  /** todo : page template isMenuOpen state */
+  return (
+    <Wrapper>
+      <PageTemplate isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}>
+        <PageNavigator
+          isMenuOpen={isMenuOpen}
+          onLeftClickHandler={leftIndex !== null ? () => pageIndexHandler(leftIndex) : null}
+          onRightClickHandler={rightIndex !== null ? () => pageIndexHandler(rightIndex) : null}
+        />
+        <TransitionGroup style={{height: "100%", position: "relative"}}
+                         childFactory={child => React.cloneElement(
+                           child, {
+                             timeout: 500,
+                             classNames: `slide${direction}`
+                           }
+                         )}
+        >
+          <CSSTransition
+            key={currentIndex}
+            timeout={500}
+            classNames={`slide${direction}`}
 
-            let newY = youtubeWidgetY + yDiff;
-            if (newY + widgetHeight > innerHeight) {
-                newY = innerHeight - widgetHeight;
-            }
-            if (newY < 0) {
-                newY = 0;
-            }
+          >
+            <CurrentPage/>
+          </CSSTransition>
+        </TransitionGroup>
+      </PageTemplate>
 
-            setYoutubeWidgetX(newX);
-            setYoutubeWidgetY(newY);
-        }
-
-    }
-    // <YoutubeWidget x={widgetX} y={widgetY} />
-    return (
-        <YoutubeContext.Provider value={youtubeContextValue}>
-            <Wrapper>
-                <DndContext onDragEnd={handleDragEnd}>
-                    <DroppableWrapper>
-                        <YoutubeWidgetHandler x={youtubeWidgetX} y={youtubeWidgetY} isPlaying={isYoutubePlaying} url={youtubeUrl}/>
-                        <Header/>
-                        <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}></Sidebar>
-                        <PageNavigator
-                            isMenuOpen={isMenuOpen}
-                            onLeftClickHandler={leftIndex !== null ? () => pageIndexHandler(leftIndex) : null}
-                            onRightClickHandler={rightIndex !== null ? () => pageIndexHandler(rightIndex) : null}/>
-                        <TransitionGroup style={{height: "100%", position: "relative"}}
-                                         childFactory={child => React.cloneElement(
-                                             child, {
-                                                 timeout: 500,
-                                                 classNames: `slide${direction}`
-                                             }
-                                         )}
-                        >
-                            <CSSTransition
-                                key={currentIndex}
-                                timeout={500}
-                                classNames={`slide${direction}`}
-
-                            >
-                                <CurrentPage/>
-                            </CSSTransition>
-
-                        </TransitionGroup>
-                    </DroppableWrapper>
-                </DndContext>
-            </Wrapper>
-        </YoutubeContext.Provider>
-
-    );
+    </Wrapper>
+  );
 }
 
 export default PageAssembler;
-export {YoutubeContext};

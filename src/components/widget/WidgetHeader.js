@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {AiFillCloseCircle} from "react-icons/ai";
 import {useContext} from "react";
-import {YoutubeContext} from "../../page/PageAssembler";
+import {YoutubeContext} from "../../context/YoutubeProvider";
 
 const Wrapper = styled.div`
   height: 30px;

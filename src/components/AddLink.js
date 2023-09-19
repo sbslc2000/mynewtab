@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {FiEdit} from "react-icons/fi";
 import {AiOutlinePlus} from "react-icons/ai";
 import {useEffect, useState} from "react";
 import AddLinkModal from "./AddLinkModal";

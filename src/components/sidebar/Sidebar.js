@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {AiOutlineSetting} from "react-icons/ai";
 import MenuContent from "./MenuContent";
 

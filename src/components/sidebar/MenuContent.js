@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import {AiOutlineArrowLeft} from "react-icons/ai";
-import {FaMoon, FaSun} from "react-icons/fa";
 import React from "react";
-import {useTheme} from "../../context/ThemeProvider";
 
 const Wrapper = styled.div`
   display: flex;

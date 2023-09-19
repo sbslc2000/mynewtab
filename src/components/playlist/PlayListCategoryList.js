@@ -1,6 +1,6 @@
 import PlayListCategory from "./PlayListCategory";
 import {useContext} from "react";
-import {YoutubeContext} from "../../page/PageAssembler";
+import {YoutubeContext} from "../../context/YoutubeProvider";
 
 
 const PLAYLISTS = {

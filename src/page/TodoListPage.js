@@ -1,8 +1,4 @@
-import PageNavigator from "../components/PageNavigator";
 import styled from "styled-components";
-import {useEffect} from "react";
-import TodoList from "../components/todo/TodoList";
-import Header from "../components/Header";
 
 const Wrapper = styled.div`
   display: flex;

@@ -1,20 +1,16 @@
-
-
-import {BrowserRouter as Router, Route, Routes, useLocation, useNavigate} from "react-router-dom";
-import React, {useState} from "react";
-import {ThemeProvider} from "./context/ThemeProvider";
-import {GlobalStyle} from "./theme/GlobalStyle";
+import {BrowserRouter as Router} from "react-router-dom";
+import React from "react";
 import PageAssembler from "./page/PageAssembler";
+import ContextProvider from "./context/ContextProvider";
 
 function App() {
-    return (
-        <ThemeProvider>
-            <GlobalStyle/>
-                <Router basename={process.env.PUBLIC_URL}>
-                    <PageAssembler/>
-                </ Router>
-        </ThemeProvider>
-    );
+  return (
+    <ContextProvider>
+      <Router basename={process.env.PUBLIC_URL}>
+        <PageAssembler/>
+      </ Router>
+    </ContextProvider>
+  );
 }
 
 export default App;

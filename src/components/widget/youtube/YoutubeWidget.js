@@ -1,5 +1,4 @@
 import WidgetFrame from "../WidgetFrame";
-import {useState} from "react";
 import styled from "styled-components";
 import WidgetHeader from "../WidgetHeader";
 

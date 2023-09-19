@@ -3,14 +3,7 @@ import Link from "./Link";
 import {useEffect, useState} from "react";
 import AddLink from "./AddLink";
 import {extractFavicon} from "../util/FaviconExtractor";
-import {
-    DndContext,
-    KeyboardSensor,
-    MouseSensor,
-    TouchSensor,
-    useSensor,
-    useSensors
-} from "@dnd-kit/core";
+import {DndContext, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors} from "@dnd-kit/core";
 import {rectSortingStrategy, SortableContext, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
 
 const Wrapper = styled.div`

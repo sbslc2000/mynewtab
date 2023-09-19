@@ -1,6 +1,6 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect} from "react";
 import YoutubeWidget from "./YoutubeWidget";
-import {YoutubeContext} from "../../../page/PageAssembler";
+import {YoutubeContext} from "../../../context/YoutubeProvider";
 
 
 const YoutubeWidgetHandler = ({x,y,isPlaying, url}) => {

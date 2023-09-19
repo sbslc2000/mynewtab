@@ -1,6 +1,6 @@
-import { lightTheme ,darkTheme } from '../theme/theme';
-import {createContext, useState, useContext, useCallback, useEffect} from 'react';
-import { ThemeProvider as StyledProvider } from 'styled-components';
+import {darkTheme, lightTheme} from '../theme/theme';
+import {createContext, useCallback, useContext, useEffect, useState} from 'react';
+import {ThemeProvider as StyledProvider} from 'styled-components';
 
 const ThemeContext = createContext({});
 const ThemeProvider = ({children}) => {

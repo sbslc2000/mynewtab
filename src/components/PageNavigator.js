@@ -1,6 +1,5 @@
 import {IoMdArrowDropleftCircle, IoMdArrowDroprightCircle} from "react-icons/io";
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
 
 const Wrapper = styled.div`
   position: fixed;
