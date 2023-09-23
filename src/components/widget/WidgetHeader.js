@@ -9,33 +9,33 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  z-index: 100;
 `;
 
 const style = {
-    fontSize: 20,
-    marginLeft:10,
-    zIndex: 100,
-    color: "#DF6058",
+  fontSize: 20,
+  marginLeft: 10,
+  zIndex: 100,
+  color: "#F04244",
 }
-
 
 
 const WidgetHeader = () => {
 
-    const YoutubeState = useContext(YoutubeContext);
-    return (
-        <Wrapper>
-            <AiFillCloseCircle  style={style}
-                               onClick={
-                                   (event) => {
-                                       event.stopPropagation();
-                                       console.log("close");
-                                       YoutubeState.setIsPlaying(false);
-                                   }
-                               }/>
-        </Wrapper>
-    );
+  const YoutubeState = useContext(YoutubeContext);
+
+  const onDeleteHandler = (event) => {
+    event.stopPropagation();
+    console.log("close");
+    YoutubeState.setIsPlaying(false);
+  }
+  return (
+    <Wrapper>
+      <AiFillCloseCircle
+        style={style}
+        onClick={onDeleteHandler}
+      />
+    </Wrapper>
+  );
 }
 
 export default WidgetHeader;

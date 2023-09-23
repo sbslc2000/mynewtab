@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import YoutubeWidgetHandler from "../components/widget/youtube/YoutubeWidgetHandler";
-import {DndContext} from "@dnd-kit/core";
+import {DndContext, MouseSensor, useSensor, useSensors} from "@dnd-kit/core";
 import DroppableWrapper from "../components/widget/DroppableWrapper";
 
 const YoutubeContext = React.createContext();
@@ -24,15 +24,17 @@ const YoutubeProvider = (props) => {
     "setWidgetY": setWidgetY
   }
 
+  const sensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10,
+    }
+  });
+
+  const sensors = useSensors(sensor);
+
   const handleDragEnd = (result) => {
     const {active, over} = result;
     if (active.id !== over.id) {
-
-      if(result.activatorEvent.offsetX < 30 && result.activatorEvent.offsetY < 30) {
-        setIsPlaying(false);
-        return;
-      }
-
 
       const xDiff = result.delta.x;
       const yDiff = result.delta.y;
@@ -67,7 +69,7 @@ const YoutubeProvider = (props) => {
 
   return (
         <YoutubeContext.Provider value = {youtubeContextValue}>
-          <DndContext onDragEnd={handleDragEnd}>
+          <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
             <DroppableWrapper>
           <YoutubeWidgetHandler x={widgetX} y={widgetY} isPlaying={isPlaying} url={youtubeUrl}/>
           {props.children}
