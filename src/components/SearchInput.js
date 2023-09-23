@@ -45,6 +45,7 @@ const SearchInput = () => {
 
     // 검색어를 입력하면 Google로 이동
     const handleSearch = () => {
+        setQuery("");
         resolveQuery(query);
     };
 
@@ -91,7 +92,7 @@ const SearchInput = () => {
                 value={query}
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}
-                placeholder="검색은 성장의 발판"
+                placeholder="검색은 성장의 발판 (⌘ + S)"
             >
             </Input>
         </Wrapper>
