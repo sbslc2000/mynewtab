@@ -14,8 +14,8 @@ const Wrapper = styled.div`
 const style = {
   fontSize: 20,
   marginLeft: 10,
-  zIndex: 100,
   color: "#F04244",
+  cursor: "pointer"
 }
 
 
