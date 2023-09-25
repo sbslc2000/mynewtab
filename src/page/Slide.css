@@ -35,6 +35,7 @@
 .slideLeft-exit-active {
     transform: translateX(100%);
     position: absolute;
+
 }
 
 /* 공통 transition 설정 */
@@ -48,3 +49,8 @@
 .slideLeft-exit-active {
     transition: transform 500ms ease-in-out;
 }
+
+
+
+
+

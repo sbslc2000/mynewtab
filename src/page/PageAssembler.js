@@ -7,6 +7,7 @@ import "./Slide.css";
 import PageNavigator from "../components/PageNavigator";
 import PlayListPage from "./PlayListPage";
 import PageTemplate from "./PageTemplate";
+import MemoPage from "./MemoPage";
 
 const Wrapper = styled.div`
   //display: flex;
@@ -15,7 +16,7 @@ const Wrapper = styled.div`
 
 
 const PAGE_LIST = [
-  MainPage, PlayListPage, TodoListPage,
+  MainPage,MemoPage, PlayListPage ,TodoListPage,
 ];
 
 export const getLeftIndex = (index) => {
@@ -31,7 +32,10 @@ const PageAssembler = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState("Right");
 
+
+
   /*
+
       페이지 이동 단축키
    */
   useEffect(() => {
