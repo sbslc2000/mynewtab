@@ -2,10 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "NotoSans";
+    src: url(./assets/font/NotoSansKR-VariableFont_wght.ttf);
+}
+
+:root {
+    --font-primary: "NotoSans";
+}
+
 body {
     background-color: #35363A;
     color: #E8E9EC;
     overflow: hidden;
+    font-family: var(--font-primary);
 
 }
 

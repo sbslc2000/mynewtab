@@ -42,7 +42,7 @@ const Favicon = styled.img`
 
 const LinkName = styled.span`
   margin-top: 13px;
-  font-size: 13px;
+  font-size: 12px;
 `;
 
 const LinkSettingBtn = styled.button`

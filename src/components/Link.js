@@ -88,32 +88,6 @@ const Link = ({id,link,deleteLink}) => {
         window.open(link.url);
     }
 
-    function isKorean(str) {
-        const regExp = /^[가-힣\s]+$/;
-        return regExp.test(str);
-    }
-
-    function containsKorean(str) {
-        const regExp = /[가-힣]/;
-        return regExp.test(str);
-    }
-
-/*
-    let filteredName = link.name;
-    if(link.name.length > 14) {
-        filteredName = link.name.substring(0,12) + "...";
-    }
-
-    if(containsKorean(link.name) && link.name.length > 8) {
-        filteredName = link.name.substring(0,6) + "...";
-    }
-
-    if(isKorean(link.name) && link.name.length > 6) {
-        filteredName = link.name.substring(0,4) + "...";
-    }
-
- */
-
 
     return (
         <Wrapper title={link.name} onClick={onClickHandler} ref={setNodeRef} style={style} {...attributes} {...listeners}>
