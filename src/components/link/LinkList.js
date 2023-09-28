@@ -5,6 +5,8 @@ import AddLink from "./AddLink";
 import {extractFavicon} from "../../util/FaviconExtractor";
 import {DndContext, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors} from "@dnd-kit/core";
 import {rectSortingStrategy, SortableContext, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
+import {useDispatch, useSelector} from "react-redux";
+import {linkActions} from "../../store/memo/Link.slice";
 
 const Wrapper = styled.div`
 
@@ -18,20 +20,8 @@ const Wrapper = styled.div`
   padding: 0 30px;
 `;
 const LinkList = () => {
-
-    const [links, setLinks] = useState([]);
-    const [linksLastId, setLinksLastId] = useState(null);
-
-    useEffect(() => {
-        const links = JSON.parse(localStorage.getItem('links'));
-        const linksLastId = Number(localStorage.getItem('linksLastId')) || 0;
-
-        if (links) {
-            setLinks(links);
-        }
-        setLinksLastId(linksLastId);
-
-    }, []);
+    const dispatch = useDispatch();
+    const links = useSelector((state) => state.link.links);
 
     const filterUrl = (url) => {
         if (url.startsWith('http://') || url.startsWith('https://')) {
@@ -46,25 +36,14 @@ const LinkList = () => {
         const filteredUrl = filterUrl(url);
         extractFavicon(filteredUrl).then((favicon) => {
             const newLink = {
-                id: linksLastId,
+                id: Date.now(),
                 name: name,
                 url: filteredUrl,
                 favicon: favicon
             }
 
-            const newLinksLastId = linksLastId + 1;
-
-            setLinksLastId(newLinksLastId);
-            setLinks([...links, newLink]);
-            localStorage.setItem('links', JSON.stringify([...links, newLink]));
-            localStorage.setItem('linksLastId', newLinksLastId);
+            dispatch(linkActions.addLink(newLink));
         }).catch((error) => {});
-    }
-
-    const deleteLink = (id) => {
-        const newLinks = links.filter(link => link.id !== id);
-        setLinks(newLinks);
-        localStorage.setItem('links', JSON.stringify(newLinks));
     }
 
     const sensors = useSensors(
@@ -94,8 +73,7 @@ const LinkList = () => {
             newLinks.splice(oldIndex, 1);
             newLinks.splice(newIndex, 0, links[oldIndex]);
 
-            setLinks(newLinks);
-            localStorage.setItem('links', JSON.stringify(newLinks));
+            dispatch(linkActions.setLinks(newLinks));
         }
     }
 
@@ -103,8 +81,8 @@ const LinkList = () => {
         <Wrapper >
             <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
                 <SortableContext items={links.map(link => link.id)} strategy={rectSortingStrategy}>
-                    {links.map((link, index) => {
-                        return <Link key={link.id} link={link} id={link.id} deleteLink={deleteLink}></Link>;
+                    {links.map((link) => {
+                        return <Link key={link.id} link={link}></Link>;
                     })}
                 </SortableContext>
 

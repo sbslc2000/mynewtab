@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import {FiEdit} from "react-icons/fi";
 import {useSortable} from "@dnd-kit/sortable";
+import {linkActions} from "../../store/memo/Link.slice";
+import {useDispatch} from "react-redux";
 
 const Wrapper = styled.a`
   position: relative;
@@ -60,7 +62,9 @@ const LinkSettingBtn = styled.button`
   padding: 8px;
 `;
 
-const Link = ({id,link,deleteLink}) => {
+const Link = ({link}) => {
+
+    const dispatch = useDispatch();
 
     const {
         attributes,
@@ -68,12 +72,11 @@ const Link = ({id,link,deleteLink}) => {
         setNodeRef,
         transform,
         transition,
-    } = useSortable({id: id});
+    } = useSortable({id: link.id});
     const onSettingClickHandler = (event) => {
         event.preventDefault();
         event.stopPropagation();
-
-        deleteLink(link.id);
+        dispatch(linkActions.deleteLink(link.id));
     }
 
     const style = {
@@ -87,7 +90,6 @@ const Link = ({id,link,deleteLink}) => {
     const onClickHandler = () => {
         window.open(link.url);
     }
-
 
     return (
         <Wrapper title={link.name} onClick={onClickHandler} ref={setNodeRef} style={style} {...attributes} {...listeners}>
