@@ -2,14 +2,14 @@ import styled from "styled-components";
 import Link from "./Link";
 import {useEffect, useState} from "react";
 import AddLink from "./AddLink";
-import {extractFavicon} from "../util/FaviconExtractor";
+import {extractFavicon} from "../../util/FaviconExtractor";
 import {DndContext, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors} from "@dnd-kit/core";
 import {rectSortingStrategy, SortableContext, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
 
 const Wrapper = styled.div`
 
   max-width: 628px;
-  max-height: 620px;
+  max-height: 476px;
   overflow-y: scroll;
   display: flex;
   flex-direction: row;

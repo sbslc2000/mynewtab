@@ -79,6 +79,8 @@ const Label = styled.label`
 
 const AddLinkModal = ({isOpen, close, addLink}) => {
 
+    const [isEditMode, setIsEditMode] = useState(false);
+
     useEffect(() => {
         const handleKeydown = (e) => {
             if (e.key === 'Escape') {

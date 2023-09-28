@@ -1,8 +1,8 @@
 import {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import {AiOutlineSearch} from "react-icons/ai";
-import {resolveQuery} from "../util/SearchQueryResolver";
-import {useTheme} from "../context/ThemeProvider";
+import {resolveQuery} from "../../util/SearchQueryResolver";
+import {useTheme} from "../../context/ThemeProvider";
 
 const Wrapper = styled.div`
 

@@ -1,6 +1,6 @@
-import SearchInput from "../components/SearchInput";
+import SearchInput from "../components/link/SearchInput";
 import styled from "styled-components";
-import LinkList from "../components/LinkList";
+import LinkList from "../components/link/LinkList";
 
 
 const Wrapper = styled.div`
