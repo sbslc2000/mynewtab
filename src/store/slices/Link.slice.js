@@ -26,6 +26,7 @@ const linkSlice = createSlice({
       const link = state.links.find(link => link.id === id);
       link.name = name;
       link.url = url;
+      link.favicon = favicon;
       localStorage.setItem("links", JSON.stringify(state.links));
     }
   }
