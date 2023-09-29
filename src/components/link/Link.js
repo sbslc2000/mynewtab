@@ -68,7 +68,6 @@ const LinkSettingBtn = styled.button`
 const Link = ({link}) => {
 
     const dispatch = useDispatch();
-    const [isEditing, setIsEditing] = useState(false);
 
     const {
         attributes,
@@ -85,16 +84,11 @@ const Link = ({link}) => {
         // dispatch(linkActions.deleteLink(link.id));
     }
 
-    const onClose = () => {
-        setIsEditing(false);
-    }
-
     const style = {
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
         transition: transition,
         zIndex: attributes["aria-pressed"] ? '999' : undefined, // 드래그 중인 아이템을 위로 띄움
         boxShadow: attributes["aria-pressed"] ? '0px 5px 15px rgba(0, 0, 0, 0.3)' : undefined, // 드래그 중에 그림자 효과
-        backgroundColor : attributes["aria-pressed"] ? '#4A4A4D' : undefined
     };
 
     const onClickHandler = () => {
