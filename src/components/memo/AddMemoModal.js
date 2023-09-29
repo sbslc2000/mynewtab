@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {FiX} from "react-icons/fi";
 import {AiOutlineClose} from "react-icons/ai";
 import {useDispatch} from "react-redux";
-import {memoActions} from "../../store/memo/Memo.slice";
+import {memoActions} from "../../store/slices/Memo.slice";
 
 const ModalOverlay = styled.div`
   position: fixed;

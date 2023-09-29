@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   border-radius: 24px;
-  box-shadow: ${({shadow}) => shadow};
+  box-shadow: ${(props) => props.shadow};
   
   padding-left: 20px;
   padding-right: 20px;

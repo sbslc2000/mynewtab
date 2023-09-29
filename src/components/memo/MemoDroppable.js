@@ -7,7 +7,7 @@ const Wrapper = styled.div`
 `;
 const MemoDroppable = (props) => {
   const {setNodeRef} = useDroppable({
-    id: "memo-droppable"
+    id: "slices-droppable"
   });
 
 

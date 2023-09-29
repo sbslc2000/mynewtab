@@ -3,7 +3,7 @@ import MemoBoard from "../components/memo/MemoBoard";
 import {useEffect, useState} from "react";
 import AddMemoModal from "../components/memo/AddMemoModal";
 import {useDispatch, useSelector} from "react-redux";
-import memoSlice, {addMemo, memoActions} from "../store/memo/Memo.slice";
+import memoSlice, {addMemo, memoActions} from "../store/slices/Memo.slice";
 
 
 const Wrapper = styled.div`

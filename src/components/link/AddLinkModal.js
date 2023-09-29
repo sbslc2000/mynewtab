@@ -77,9 +77,7 @@ const Label = styled.label`
   margin-bottom: 5px;
 `;
 
-const AddLinkModal = ({isOpen, close, addLink}) => {
-
-    const [isEditMode, setIsEditMode] = useState(false);
+const AddLinkModal = ({close, addLink}) => {
 
     useEffect(() => {
         const handleKeydown = (e) => {
@@ -104,10 +102,6 @@ const AddLinkModal = ({isOpen, close, addLink}) => {
 
     const onLinkChangeHandler = (e) => {
         setUrl(e.target.value);
-    }
-
-    if (!isOpen) {
-        return null;
     }
 
     const onSubmitHandler = (e) => {

@@ -95,9 +95,7 @@ const AddLink = ({addLink}) => {
             </LinkIcon>
 
             <LinkName>바로가기 추가</LinkName>
-            <AddLinkModal isOpen={isModalOpen} close={closeModal}
-                addLink={addLink}
-            />
+            {isModalOpen && <AddLinkModal addLink={addLink} close={closeModal} /> }
         </Wrapper>
     );
 }

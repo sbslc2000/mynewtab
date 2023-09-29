@@ -6,7 +6,9 @@ import {extractFavicon} from "../../util/FaviconExtractor";
 import {DndContext, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors} from "@dnd-kit/core";
 import {rectSortingStrategy, SortableContext, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
 import {useDispatch, useSelector} from "react-redux";
-import {linkActions} from "../../store/memo/Link.slice";
+import {linkActions} from "../../store/slices/Link.slice";
+import EditLinkModal from "./EditLinkModal";
+import {editLinkActions} from "../../store/slices/EditLink.slice";
 
 const Wrapper = styled.div`
 
@@ -19,16 +21,22 @@ const Wrapper = styled.div`
 
   padding: 0 30px;
 `;
+
+export const filterUrl = (url) => {
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+        return url;
+    } else {
+        return 'http://' + url;
+    }
+}
 const LinkList = () => {
     const dispatch = useDispatch();
     const links = useSelector((state) => state.link.links);
+    const isEditing = useSelector((state) => state.editLink.isEditing);
+    const editingLink = useSelector((state) => state.editLink.editingLink);
 
-    const filterUrl = (url) => {
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-            return url;
-        } else {
-            return 'http://' + url;
-        }
+    const closeEditModal = () => {
+        dispatch(editLinkActions.closeEditModal());
     }
 
     const addLink = (name, url) => {
@@ -89,6 +97,7 @@ const LinkList = () => {
             </DndContext>
 
             <AddLink addLink={addLink}/>
+            {isEditing && <EditLinkModal isOpen={isEditing} close={closeEditModal} link={editingLink} />}
         </Wrapper>
     );
 }

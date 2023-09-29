@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {useDraggable} from "@dnd-kit/core";
 import {AiOutlineClose} from "react-icons/ai";
 import {useDispatch} from "react-redux";
-import {memoActions} from "../../store/memo/Memo.slice";
+import {memoActions} from "../../store/slices/Memo.slice";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -88,7 +88,7 @@ const Memo = ({id, title, content, top, left, bgColor}) => {
              top={top}
              left={left}
              isDragging={isDragging}
-             className={"memo-item"}
+             className={"slices-item"}
              bgColor={bgColor}
     >
       <CloseTab >

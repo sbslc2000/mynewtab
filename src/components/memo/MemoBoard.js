@@ -5,7 +5,7 @@ import "./Masonry.css";
 import {DndContext, PointerSensor, useSensor, useSensors} from "@dnd-kit/core";
 import {rectSortingStrategy, SortableContext} from "@dnd-kit/sortable";
 import {useDispatch} from "react-redux";
-import {memoActions} from "../../store/memo/Memo.slice";
+import {memoActions} from "../../store/slices/Memo.slice";
 import MemoDroppable from "./MemoDroppable";
 
 const Wrapper = styled.div`

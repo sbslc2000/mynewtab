@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import {FiEdit} from "react-icons/fi";
 import {useSortable} from "@dnd-kit/sortable";
-import {linkActions} from "../../store/memo/Link.slice";
+import {linkActions} from "../../store/slices/Link.slice";
 import {useDispatch} from "react-redux";
+import {useState} from "react";
+import EditLinkModal from "./EditLinkModal";
+import {editLinkActions} from "../../store/slices/EditLink.slice";
 
 const Wrapper = styled.a`
   position: relative;
@@ -65,6 +68,7 @@ const LinkSettingBtn = styled.button`
 const Link = ({link}) => {
 
     const dispatch = useDispatch();
+    const [isEditing, setIsEditing] = useState(false);
 
     const {
         attributes,
@@ -76,7 +80,13 @@ const Link = ({link}) => {
     const onSettingClickHandler = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        dispatch(linkActions.deleteLink(link.id));
+        console.log("link link:",link);
+        dispatch(editLinkActions.openEditModal(link));
+        // dispatch(linkActions.deleteLink(link.id));
+    }
+
+    const onClose = () => {
+        setIsEditing(false);
     }
 
     const style = {
@@ -84,7 +94,7 @@ const Link = ({link}) => {
         transition: transition,
         zIndex: attributes["aria-pressed"] ? '999' : undefined, // 드래그 중인 아이템을 위로 띄움
         boxShadow: attributes["aria-pressed"] ? '0px 5px 15px rgba(0, 0, 0, 0.3)' : undefined, // 드래그 중에 그림자 효과
-        backgroundColor : attributes["aria-pressed"] ? '#4A4A4D;' : undefined
+        backgroundColor : attributes["aria-pressed"] ? '#4A4A4D' : undefined
     };
 
     const onClickHandler = () => {

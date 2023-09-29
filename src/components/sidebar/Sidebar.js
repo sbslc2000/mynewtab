@@ -57,13 +57,7 @@ const Sidebar = ({isMenuOpen,setIsMenuOpen}) => {
         return () => {
             document.removeEventListener('keydown', handleClose);
         };
-    }, [isMenuOpen]);
-
-
-
-    const toggleMenuBar = () => {
-        setIsMenuOpen(!isMenuOpen);
-    }
+    }, [isMenuOpen, setIsMenuOpen]);
 
     const closeMenuBar = () => {
         setIsMenuOpen(false);

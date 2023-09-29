@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+import {linkActions} from "../../store/slices/Link.slice";
+import {extractFavicon} from "../../util/FaviconExtractor";
+import {filterUrl} from "./LinkList";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -21,11 +25,6 @@ const Modal = styled.div`
   border-radius: 8px;
 `;
 
-const ModalClose = styled.button`
-  float: right;
-  cursor: pointer;
-`;
-
 const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,8 +34,6 @@ const ModalContent = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  
- 
 `;
 
 const ButtonList = styled.div`
@@ -51,8 +48,7 @@ const Input = styled.input`
   border-bottom: 2px solid ${({theme}) => theme.bgColor};
   padding: 5px;
   margin-bottom: 5px;
-  
-
+    
   &:focus {
     outline: none;
     border-bottom: 2px solid #96B3F5;
@@ -63,13 +59,10 @@ const Button = styled.button`
   padding: 8px;
   margin: 8px;
   width: 70px;
-  //background-color: #404245;
   border-radius: 7px;
 
   background-color: ${props => props.disabled ?  "inherit": "#96B3F5"};
-  ${props => props.cancel ? "background-color: inherit;border: 1px solid #606368;" : ""}
-  
-  
+  ${props => props.isCancel ? "background-color: inherit;border: 1px solid #606368;" : ""}
 `;
 
 const Label = styled.label`
@@ -77,9 +70,26 @@ const Label = styled.label`
   margin-bottom: 5px;
 `;
 
-const AddLinkModal = ({isOpen, close, addLink}) => {
+const EditLinkModal = ({close, link}) => {
 
-    const [isEditMode, setIsEditMode] = useState(false);
+    const dispatch = useDispatch();
+
+    const onSubmitHandler = async (e) => {
+        e?.preventDefault();
+
+        if(!(name.length > 0) || !(url.length > 0)) {
+            return null;
+        }
+
+        dispatch(linkActions.updateLink({
+            "id": link.id,
+            "name": name,
+            "url": filterUrl(url),
+            "favicon": await extractFavicon(filterUrl(url))
+        }));
+
+        close();
+    }
 
     useEffect(() => {
         const handleKeydown = (e) => {
@@ -95,36 +105,31 @@ const AddLinkModal = ({isOpen, close, addLink}) => {
         }
     }, []);
 
-    const [name, setName] = useState("");
-    const [url, setUrl] = useState("");
+    const [name, setName] = useState(link.name);
+    const [url, setUrl] = useState(link.url);
 
     const onNameChangeHandler = (e) => {
       setName(e.target.value);
+    }
+
+    const onDeleteHandler = (e) => {
+        e.preventDefault();
+        dispatch(linkActions.deleteLink(link.id));
+        close();
     }
 
     const onLinkChangeHandler = (e) => {
         setUrl(e.target.value);
     }
 
-    if (!isOpen) {
-        return null;
-    }
-
-    const onSubmitHandler = (e) => {
-        e?.preventDefault();
-
-        addLink(name,url);
-        setName("");
-        setUrl("");
-        close();
-    }
-
     return (
-        <ModalOverlay onClick={close}>
-            <Modal onClick={e => e.stopPropagation()}>
-                <ModalContent>
-                    <span style={{marginBottom: 10}}>바로가기 추가</span>
-                    <Form type="submit" onSubmit={onSubmitHandler}>
+        <ModalOverlay onClick={e => {
+            e.stopPropagation();
+        }}>
+            <Modal >
+                <ModalContent >
+                    <span style={{marginBottom: 10}}>바로가기 수정</span>
+                    <Form onSubmit={onSubmitHandler}>
                         <Label>이름</Label>
                         <Input
                             value={name}
@@ -138,26 +143,22 @@ const AddLinkModal = ({isOpen, close, addLink}) => {
                             onChange={onLinkChangeHandler}
                         />
                         <ButtonList>
-                            <Button type="button" onClick={close} cancel>취소</Button>
+                            <Button style={{border:"1px solid red",color:"red",backgroundColor:"inherit"}}
+                                  type="button" onClick={onDeleteHandler} isCancel={true}>삭제</Button>
+                            <Button type="button" onClick={close} isCancel={true}>취소</Button>
                             <Button
                                 type="submit"
-                                onClick={() => {
-                                    if(name.length > 0 && url.length > 0) {
-                                        onSubmitHandler();
-                                    }
-                                }}
+                                onSubmit={onSubmitHandler}
                                 disabled={!(name.length > 0 && url.length > 0)} // 조건 수정
                             >
-                                추가
+                                변경
                             </Button>
                         </ButtonList>
                     </Form>
-
-
                 </ModalContent>
             </Modal>
         </ModalOverlay>
     );
 }
 
-export default AddLinkModal;
+export default EditLinkModal;
